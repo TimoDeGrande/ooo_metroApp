@@ -11,10 +11,9 @@ import view.MetroTicketView;
 public class MetroMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		System.out.println(3);
-//		AdminView adminView = new AdminView();
-//		MetroTicketView metroTicketView = new MetroTicketView();
-//		MetroStationView metroStationView = new MetroStationView();
+		AdminView adminView = new AdminView();
+		MetroTicketView metroTicketView = new MetroTicketView();
+		MetroStationView metroStationView = new MetroStationView();
 	}
 	
 	public static void main(String[] args) {
