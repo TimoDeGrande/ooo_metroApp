@@ -1,37 +1,39 @@
 package domain.model.db.utilities;
 
-import domain.model.MetroCard;
-import sun.security.util.PendingException;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class TextLoadSaveTemplate {
+public abstract class TextLoadSaveTemplate<K,V>{
 
-    private ArrayList<MetroCard> metroCards = new ArrayList<>();
-
-    public void load(){
-        ArrayList<MetroCard> returnMap = new ArrayList<>();
-        try{
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get("src/bestanden/metrocards.txt"), StandardCharsets.UTF_8);
-            for(String line: lines) {
-                String[] tokens = line.trim().split(";");
-                int month = Integer.parseInt(tokens[1].split("#")[0]);
-                int year = Integer.parseInt(tokens[1].split("#")[1]);
-                returnMap.add(new MetroCard(Integer.parseInt(tokens[0]),month, year, Integer.parseInt(tokens[2]), Integer.parseInt(tokens[3])));
+    public final Map<K,V> load(File file) throws IOException {
+        Map<K,V> returnMap = new HashMap<K,V>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))){
+            String line = reader.readLine();
+            while (line != null && !line.trim().equals("")) {
+                String[] tokens = line.split(",");
+                V element = maakObject(tokens);
+                K key = getKey(tokens);
+                returnMap.put(key,element);
+                line = reader.readLine();
             }
         }
-        catch (IOException exc){
-            exc.printStackTrace();
+        return returnMap;
+    }
+
+    public abstract V maakObject(String[] tokens);
+
+    public abstract K getKey(String[] tokens);
+
+    public final void save(Map<K,V> map, File file) throws IOException {
+        try {
+            PrintWriter writer = new PrintWriter(file);
+            for (V v : map.values()) {
+                writer.println(v);
+            }
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            throw new IllegalArgumentException("Fout bij het wegschrijven");
         }
-        this.metroCards = returnMap;
     }
 }
