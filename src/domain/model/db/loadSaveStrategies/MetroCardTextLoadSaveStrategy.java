@@ -25,7 +25,7 @@ public class MetroCardTextLoadSaveStrategy <K,V> extends TextLoadSaveTemplate im
 
     @Override
     public Map<K,V> load(){
-        File file = new File("ooo_metroApp/src/bestanden/metrocards.txt");
+        File file = new File("src/bestanden/metrocards.txt");
         Map<K,V> cards =   new HashMap<K,V>();
         try {
             cards = load(file);

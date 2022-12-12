@@ -26,7 +26,7 @@ public class MetroCardExcelLoadSaveStrategy <K,V> extends ExcelLoadSaveTemplate 
 
     @Override
     public Map<K, V> load() {
-        File file = new File("ooo_metroApp/src/bestanden/metrocards.xls");
+        File file = new File("src/bestanden/metrocards.xls");
         Map<K, V> cards = new HashMap<K, V>();
         try {
             cards = load(file);
