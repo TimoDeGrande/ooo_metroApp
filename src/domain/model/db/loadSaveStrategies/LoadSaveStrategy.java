@@ -10,5 +10,5 @@ import java.util.Map;
 
 public interface LoadSaveStrategy <K,V> {
     void save(Map<K,V> map, File file)throws BiffException, IOException, WriteException;
-    Map<K,V> load(File file) throws BiffException, IOException;
+    Map<K,V> load() throws BiffException, IOException;
 }
