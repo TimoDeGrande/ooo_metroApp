@@ -3,7 +3,7 @@ package domain.model;
 import java.time.LocalDate;
 
 public class MetroCard {
-    private static int cardID;
+    private int cardID;
     private int month, year;
     private int availableRides, totalUsedRides;
 
@@ -15,12 +15,18 @@ public class MetroCard {
         setTotalUsedRides(totalUsedRides);
     }
 
-    public static void setCardID(int cardID) {
+
+    public int getCardID(){
+        return cardID;
+    }
+
+
+    public void setCardID(int cardID) {
         if(cardID < 0){
-            throw new DomainException("cardID has to be larger than 0");
+            throw new DomainException("cardID has to be positive");
         }
         else{
-            MetroCard.cardID = cardID;
+            this.cardID = cardID;
         }
     }
 
@@ -32,6 +38,9 @@ public class MetroCard {
             this.month = month;
         }
     }
+
+    public int getMonth(){return month;}
+
 
     public void setYear(int year) {
         if(year > LocalDate.now().getYear()){
@@ -45,21 +54,33 @@ public class MetroCard {
         }
     }
 
+    public int getYear(){return year;}
+
     public void setAvailableRides(int availableRides) {
         if(availableRides < 0){
-            throw new DomainException("available rides have to be larger than 0");
+            throw new DomainException("available rides have to be positive");
         }
         else{
             this.availableRides = availableRides;
         }
     }
 
+    public int getAvailableRides(){return availableRides;}
+
     public void setTotalUsedRides(int totalUsedRides) {
         if(totalUsedRides < 0){
-            throw new DomainException("total used rides have to be larger than 0");
+            throw new DomainException("total used rides have to be positive");
         }
         else{
             this.totalUsedRides = totalUsedRides;
         }
+    }
+
+    public int getTotalUsedRides(){return totalUsedRides;}
+
+
+
+    public String toString(){
+        return getCardID()+"-"+getMonth()+"-"+getYear()+"-"+getAvailableRides()+"-"+getTotalUsedRides();
     }
 }

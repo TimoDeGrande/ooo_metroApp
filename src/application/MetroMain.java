@@ -1,5 +1,6 @@
 package application;
 	
+import domain.model.db.loadSaveStrategies.LoadSaveStrategyEnum;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.AdminView;
