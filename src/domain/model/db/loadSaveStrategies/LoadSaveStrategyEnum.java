@@ -4,9 +4,11 @@ public enum LoadSaveStrategyEnum {
     EXCEL("MetroCardExcelLoadSaveStrategy"),
     TEXT("MetroCardTextLoadSaveStrategy");
 
-    String className;
+    private String className;
 
-    LoadSaveStrategyEnum(String className) {}
+    LoadSaveStrategyEnum(String className) {
+        this.className = className;
+    }
 
     public String getClassName() {
         return this.className;

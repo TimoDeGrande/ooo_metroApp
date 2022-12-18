@@ -1,6 +1,7 @@
 package application;
 	
 import domain.model.db.loadSaveStrategies.LoadSaveStrategyEnum;
+import domain.model.db.loadSaveStrategies.LoadSaveStrategyFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.AdminView;
@@ -14,6 +15,7 @@ public class MetroMain extends Application {
 		AdminView adminView = new AdminView();
 		MetroTicketView metroTicketView = new MetroTicketView();
 		MetroStationView metroStationView = new MetroStationView();
+
 	}
 	
 	public static void main(String[] args) {
