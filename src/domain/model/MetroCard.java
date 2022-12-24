@@ -62,4 +62,25 @@ public class MetroCard {
             this.totalUsedRides = totalUsedRides;
         }
     }
+
+    public int getCardID() {
+        return cardID;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getAvailableRides() {
+        return availableRides;
+    }
+
+    public int getTotalUsedRides() {
+        return totalUsedRides;
+    }
+
 }
