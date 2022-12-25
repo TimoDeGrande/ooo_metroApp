@@ -15,7 +15,7 @@ public class MetroCardExcelLoadSaveStrategy extends ExcelLoadSaveTemplate implem
     }
 
     @Override
-    public void load() {
+    public ArrayList<MetroCard> load(String filename) {
         throw new PendingException("Implement me.");
     }
 }

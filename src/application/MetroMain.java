@@ -29,6 +29,9 @@ public class MetroMain extends Application {
 		LoadSaveStrategy l = new MetroCardTextLoadSaveStrategy();
 		l.save("newfile", list);
 
+
+		System.out.println(l.load("metrocards.txt"));
+
 	}
 	
 	public static void main(String[] args) {
