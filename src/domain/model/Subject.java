@@ -7,6 +7,7 @@ public interface Subject {
 
     default void addObserver(Observer o) {
         this.observers.add(o);
+        o.setSubject(this);
     }
 
     default void updateObservers() {
