@@ -26,7 +26,7 @@ public class MetroMain extends Application {
 		list.put(3, new MetroCard(3, 1, 2022,0, 10));
 		list.put(4, new MetroCard(4, 2, 2022,10, 60));
 
-		LoadSaveStrategy l = new MetroCardExcelLoadSaveStrategy();
+		LoadSaveStrategy l = LoadSaveStrategyFactory.createLoadSaveStrategy("EXCEL");
 		System.out.println(l.load("src/bestanden/metrocards2.xls").values().toString());
 
 	}

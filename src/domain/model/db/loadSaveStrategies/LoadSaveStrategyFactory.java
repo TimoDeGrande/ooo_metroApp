@@ -25,7 +25,7 @@ public class LoadSaveStrategyFactory {
 
         //een object aanmaken met behulp van een constructor met paramaters gelijk aan deze uit de dataTypes array
         try {
-            Class<?> clazz = Class.forName(className);
+            Class<?> clazz = Class.forName(location + className);
             Constructor<?> constructor = clazz.getConstructor(dataTypes);
             instance = (LoadSaveStrategy) constructor.newInstance(args);
         } catch (Exception ex) {
