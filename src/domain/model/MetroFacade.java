@@ -8,6 +8,8 @@ import domain.model.db.MetroCardDatabase;
 import domain.model.db.loadSaveStrategies.LoadSaveStrategyFactory;
 import view.panels.MetroCardOverviewPane;
 
+import java.util.ArrayList;
+
 public class MetroFacade implements Subject {
     private MetroCardDatabase metroCardDatabase;
     private LoadSaveStrategyFactory factory;
@@ -24,4 +26,11 @@ public class MetroFacade implements Subject {
         this.controlCenterPaneController = new ControlCenterPaneController(this);
     }
 
+    public void openMetroStation() {
+
+    }
+
+    public ArrayList<MetroCard> getMetroCardList() {
+        return this.metroCardDatabase.getMetroCardList();
+    }
 }

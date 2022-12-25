@@ -2,9 +2,9 @@ package domain.model.db;
 
 import domain.model.MetroCard;
 import domain.model.db.loadSaveStrategies.LoadSaveStrategy;
-import sun.security.util.PendingException;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class MetroCardDatabase {
@@ -15,15 +15,15 @@ public class MetroCardDatabase {
         this.metrocards = new TreeMap<>();
     }
 
-    public void load() {
-        throw new PendingException("Implement me.");
+    public void load(String filename) {
+        this.metrocards = (TreeMap<Integer, MetroCard>) this.loadSaveStrategy.load(filename);
     }
 
-    public void save() {
-        throw new PendingException("Implement me.");
+    public void save(String filename) {
+        this.loadSaveStrategy.save(filename, this.metrocards);
     }
 
     public ArrayList<MetroCard> getMetroCardList() {
-        throw new PendingException("Implement me.");
+        return (ArrayList<MetroCard>) this.metrocards.values();
     }
 }
