@@ -11,7 +11,10 @@ import view.AdminView;
 import view.MetroStationView;
 import view.MetroTicketView;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 public class MetroMain extends Application {
@@ -20,18 +23,17 @@ public class MetroMain extends Application {
 //		AdminView adminView = new AdminView();
 //		MetroTicketView metroTicketView = new MetroTicketView();
 //		MetroStationView metroStationView = new MetroStationView();
-		ArrayList list = new ArrayList();
-		list.add(new MetroCard(1, 10, 2021,3, 59));
-		list.add(new MetroCard(2, 1, 2022,10, 5));
-		list.add(new MetroCard(3, 1, 2022,0, 10));
-		list.add(new MetroCard(4, 2, 2022,10, 60));
+		Map<Integer, MetroCard> list = new TreeMap<>();
+		list.put(1, new MetroCard(1, 10, 2021,3, 59));
+		list.put(2, new MetroCard(2, 1, 2022,10, 5));
+		list.put(3, new MetroCard(3, 1, 2022,0, 10));
+		list.put(4, new MetroCard(4, 2, 2022,10, 60));
 
 		LoadSaveStrategy l = new MetroCardTextLoadSaveStrategy();
-		l.save("newfile", list);
 
+		l.load("src/bestanden/metrocards.txt");
 
-		System.out.println(l.load("metrocards.txt"));
-
+		l.save("src/bestanden/newfile.txt", list);
 	}
 	
 	public static void main(String[] args) {

@@ -4,51 +4,41 @@ import domain.model.MetroCard;
 import domain.model.db.utilities.TextLoadSaveTemplate;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.Map;
 
 public class MetroCardTextLoadSaveStrategy extends TextLoadSaveTemplate implements LoadSaveStrategy {
     @Override
-    public void save(String filename, ArrayList<MetroCard> cards) {
-        try {
-            FileWriter out = new FileWriter("src/bestanden/" + filename);
-            for (MetroCard card : cards) {
-                String string = card.getCardID() + ";" + card.getMonth() + "#" + card.getYear() + ";" + card.getAvailableRides() + ";" + card.getTotalUsedRides() + "\n";
-                out.write(string);
-            }
-            out.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+    protected MetroCard maakObject(String[] tokens) {
+        return new MetroCard(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1].split("#")[0]),
+                Integer.parseInt(tokens[1].split("#")[1]), Integer.parseInt(tokens[2]), Integer.parseInt(tokens[3]));
+    }
+
+
+    @Override
+    protected String maakSchrijfbareString(Object o) {
+        MetroCard m = (MetroCard) o;
+        return m.getCardID() + ";" + m.getMonth() + "#" + m.getYear() + ";" + m.getAvailableRides() + ";" + m.getTotalUsedRides();
+    }
+
+    protected String getKey(String[] tokens) {
+        return tokens[0];
     }
 
     @Override
-    public ArrayList<MetroCard> load(String filename) {
-        ArrayList<MetroCard> all = new ArrayList<>();
-        try {
-            File myObj = new File("src/bestanden/" + filename);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String[] data = myReader.nextLine().split(";");
-                int id = Integer.parseInt(data[0]);
-                int month = Integer.parseInt(data[1].split("#")[0]);
-                int year = Integer.parseInt(data[1].split("#")[1]);
-                int available = Integer.parseInt(data[2]);
-                int used = Integer.parseInt(data[3]);
-                all.add(new MetroCard(id, month, year, available, used));
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-        return all;
+    public void save(String filename, Map<Integer, MetroCard> cards) {
+        super.save(new File(filename), cards);
+
     }
 
+    @Override
+    public Map load(String filename) {
+        try {
+            return super.load(new File(filename));
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

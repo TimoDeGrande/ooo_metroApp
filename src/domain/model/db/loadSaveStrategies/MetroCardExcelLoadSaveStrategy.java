@@ -7,15 +7,16 @@ import sun.security.util.PendingException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MetroCardExcelLoadSaveStrategy extends ExcelLoadSaveTemplate implements LoadSaveStrategy {
     @Override
-    public void save(String filename, ArrayList<MetroCard> cards) {
+    public void save(String filename, Map<Integer, MetroCard> cards) {
         throw new PendingException("Implement me.");
     }
 
     @Override
-    public ArrayList<MetroCard> load(String filename) {
+    public Map<Integer, MetroCard> load(String filename) {
         throw new PendingException("Implement me.");
     }
 }

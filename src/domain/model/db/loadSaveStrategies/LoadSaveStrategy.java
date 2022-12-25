@@ -5,9 +5,10 @@ import sun.security.util.PendingException;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface LoadSaveStrategy {
-    void save(String filename, ArrayList<MetroCard> cards);
+    void save(String filename, Map<Integer, MetroCard> cards);
 
-    ArrayList<MetroCard> load(String filename);
+    Map<Integer, MetroCard> load(String filename);
 }
