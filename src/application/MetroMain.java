@@ -1,10 +1,7 @@
 package application;
 	
 import domain.model.MetroCard;
-import domain.model.db.loadSaveStrategies.LoadSaveStrategy;
-import domain.model.db.loadSaveStrategies.LoadSaveStrategyEnum;
-import domain.model.db.loadSaveStrategies.LoadSaveStrategyFactory;
-import domain.model.db.loadSaveStrategies.MetroCardTextLoadSaveStrategy;
+import domain.model.db.loadSaveStrategies.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.AdminView;
@@ -29,11 +26,9 @@ public class MetroMain extends Application {
 		list.put(3, new MetroCard(3, 1, 2022,0, 10));
 		list.put(4, new MetroCard(4, 2, 2022,10, 60));
 
-		LoadSaveStrategy l = new MetroCardTextLoadSaveStrategy();
+		LoadSaveStrategy l = new MetroCardExcelLoadSaveStrategy();
+		System.out.println(l.load("src/bestanden/metrocards2.xls").values().toString());
 
-		l.load("src/bestanden/metrocards.txt");
-
-		l.save("src/bestanden/newfile.txt", list);
 	}
 	
 	public static void main(String[] args) {
