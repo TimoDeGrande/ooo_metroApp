@@ -3,7 +3,8 @@ package view;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;	
+import javafx.stage.StageStyle;
+import view.panels.MetroTicketPane;
 
 public class MetroTicketView {
 	private Stage stage = new Stage();		
@@ -14,6 +15,7 @@ public class MetroTicketView {
 		stage.setX(5);
 		stage.setY(5);
 		Group root = new Group();
+		root.getChildren().add(new MetroTicketPane());
 		Scene scene = new Scene(root, 650, 350);			
 		stage.setScene(scene);
 		stage.sizeToScene();			
