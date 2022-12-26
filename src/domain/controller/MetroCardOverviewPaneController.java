@@ -6,22 +6,25 @@ import view.panels.MetroCardOverviewPane;
 import java.util.ArrayList;
 
 public class MetroCardOverviewPaneController implements Observer {
-    private Subject subject;
+    private MetroFacade facade;
     private MetroCardOverviewPane view;
 
-    public MetroCardOverviewPaneController(Subject subject) {
-        this.view = new MetroCardOverviewPane();
-        this.setSubject(subject);
+    public MetroCardOverviewPaneController(MetroCardOverviewPane view, MetroFacade facade) {
+        this.view = view;
+        this.setSubject(facade);
+        this.view.setController(this);
+
+        this.facade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
+        this.facade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
     }
     @Override
     public void update(MetroEventsEnum e) {
-        System.out.println("Updated on : " + e.toString() + "!!!");
-        ArrayList<MetroCard> cards = ((MetroFacade) this.subject).getMetroCardList();
+        ArrayList<MetroCard> cards = this.facade.getMetroCardList();
         this.view.updateMetroCardList(cards);
     }
 
     @Override
     public void setSubject(Subject subject) {
-        this.subject = subject;
+        this.facade = (MetroFacade) subject;
     }
 }

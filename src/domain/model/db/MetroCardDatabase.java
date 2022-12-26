@@ -16,6 +16,9 @@ public class MetroCardDatabase {
         this.metrocards = new HashMap<>();
     }
 
+    public void add(MetroCard m) {
+        this.metrocards.put(m.getCardID(), m);
+    }
     public void load() {
         this.metrocards = (HashMap<Integer, MetroCard>) this.loadSaveStrategy.load();
     }
@@ -35,4 +38,5 @@ public class MetroCardDatabase {
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {
         this.loadSaveStrategy = loadSaveStrategy;
     }
+
 }
