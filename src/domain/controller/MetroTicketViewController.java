@@ -1,5 +1,6 @@
 package domain.controller;
 
+import domain.model.MetroEventsEnum;
 import domain.model.Observer;
 import domain.model.Subject;
 import view.MetroTicketView;
@@ -14,7 +15,7 @@ public class MetroTicketViewController implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update(MetroEventsEnum e) {
 
     }
 

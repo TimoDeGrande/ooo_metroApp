@@ -1,8 +1,9 @@
 package domain.controller;
 
-import domain.model.Observer;
-import domain.model.Subject;
+import domain.model.*;
 import view.panels.MetroCardOverviewPane;
+
+import java.util.ArrayList;
 
 public class MetroCardOverviewPaneController implements Observer {
     private Subject subject;
@@ -13,8 +14,10 @@ public class MetroCardOverviewPaneController implements Observer {
         this.setSubject(subject);
     }
     @Override
-    public void update() {
-
+    public void update(MetroEventsEnum e) {
+        System.out.println("Updated on : " + e.toString() + "!!!");
+        ArrayList<MetroCard> cards = ((MetroFacade) this.subject).getMetroCardList();
+        this.view.updateMetroCardList(cards);
     }
 
     @Override

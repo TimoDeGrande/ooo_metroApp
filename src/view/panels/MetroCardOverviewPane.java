@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import sun.security.util.PendingException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,5 +54,10 @@ public class MetroCardOverviewPane extends GridPane{
 		cards = FXCollections.observableArrayList(); // in observable de metrocards ophalen
 		table.setItems(cards);
 		table.refresh();
+	}
+
+	public void updateMetroCardList(ArrayList<MetroCard> cards) {
+		//todo has to be implemented: replace cards in this class to cards that are given
+		throw new PendingException("Implement me!!");
 	}
 }

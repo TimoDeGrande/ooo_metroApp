@@ -1,6 +1,7 @@
 package domain.model;
 
 public interface Observer {
-    void update();
+    void update(MetroEventsEnum e);
+
     void setSubject(Subject subject);
 }

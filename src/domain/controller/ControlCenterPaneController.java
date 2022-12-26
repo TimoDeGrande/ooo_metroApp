@@ -1,5 +1,6 @@
 package domain.controller;
 
+import domain.model.MetroEventsEnum;
 import domain.model.Observer;
 import domain.model.Subject;
 import view.panels.ControlCenterPane;
@@ -13,7 +14,7 @@ public class ControlCenterPaneController implements Observer {
         setSubject(subject);
     }
     @Override
-    public void update() {
+    public void update(MetroEventsEnum event) {
 
     }
 

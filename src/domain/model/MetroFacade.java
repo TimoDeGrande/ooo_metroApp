@@ -11,6 +11,7 @@ import domain.model.db.loadSaveStrategies.LoadSaveStrategyFactory;
 import view.panels.MetroCardOverviewPane;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MetroFacade implements Subject {
     private MetroCardDatabase metroCardDatabase;
@@ -21,18 +22,22 @@ public class MetroFacade implements Subject {
     private ControlCenterPaneController controlCenterPaneController;
 
     public MetroFacade() {
+        for (MetroEventsEnum eventType : MetroEventsEnum.values()) {
+            observers.put(eventType, new ArrayList<Observer>());
+        }
         this.metroCardDatabase = new MetroCardDatabase();
         this.metroTicketViewController = new MetroTicketViewController(this);
         this.metroStationViewController = new MetroStationViewController(this);
-        this.metroCardOverviewPaneController = new MetroCardOverviewPaneController(this);
         this.controlCenterPaneController = new ControlCenterPaneController(this);
+
+        this.addObserver(MetroEventsEnum.OPEN_METROSTATION, new MetroCardOverviewPaneController(this));
     }
 
     public void openMetroStation() {
         LoadSaveStrategy l = LoadSaveStrategyFactory.createLoadSaveStrategy();
         this.metroCardDatabase.setLoadSaveStrategy(l);
         this.metroCardDatabase.load();
-
+        this.updateObservers(MetroEventsEnum.OPEN_METROSTATION);
     }
 
     public ArrayList<MetroCard> getMetroCardList() {

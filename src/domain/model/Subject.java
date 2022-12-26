@@ -1,17 +1,20 @@
 package domain.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface Subject {
-    ArrayList<Observer> observers = new ArrayList<>();
+    Map<MetroEventsEnum, List<Observer>> observers = new HashMap<>();
 
-    default void addObserver(Observer o) {
-        this.observers.add(o);
+    default void addObserver(MetroEventsEnum event, Observer o) {
+        this.observers.get(event).add(o);
         o.setSubject(this);
     }
 
-    default void updateObservers() {
-        this.observers.forEach(Observer::update);
+    default void updateObservers(MetroEventsEnum event) {
+        this.observers.get(event).forEach(e -> e.update(event));
     }
 
 }
