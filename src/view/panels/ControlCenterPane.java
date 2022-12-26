@@ -3,7 +3,6 @@ package view.panels;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 public class ControlCenterPane extends GridPane {

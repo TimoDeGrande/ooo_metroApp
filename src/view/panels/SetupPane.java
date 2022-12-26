@@ -15,7 +15,7 @@ import java.util.Properties;
 public class SetupPane extends GridPane {
 
     private String selectedFormat;
-    private final static String propertiesPath = "src/bestanden/format.properties";
+    private final static String propertiesPath = "src/bestanden/application.properties";
 
     public SetupPane(){
         this.setPadding(new Insets(5, 5, 5, 5));
@@ -25,7 +25,7 @@ public class SetupPane extends GridPane {
             Properties properties = new Properties();
             InputStream inputStream = new FileInputStream(propertiesPath);
             properties.load(inputStream);
-            String currFormat = properties.getProperty("format");
+            String currFormat = properties.getProperty("bestandformaat");
             Text currentformattext = new Text();
             currentformattext.setText(String.format("Geselecteerde formaat: %s. Als u dit wil wijzigen kan u de knoppen hieronder gebruiken", currFormat));
             this.add(currentformattext, 0,0,2,1);
@@ -41,10 +41,10 @@ public class SetupPane extends GridPane {
 
     private void setOptions(String option){
         Button excel = new Button();
-        excel.setText("excel");
+        excel.setText("EXCEL");
         excel.setOnAction(event -> this.setSelectedFormat("excel"));
         Button tekst = new Button();
-        tekst.setText("tekst");
+        tekst.setText("TEXT");
         tekst.setOnAction(event -> this.setSelectedFormat("tekst"));
         Button save = new Button();
         save.setText(option);
@@ -61,9 +61,9 @@ public class SetupPane extends GridPane {
         if(this.selectedFormat != null){
             try {
                 Properties properties = new Properties();
-                properties.setProperty("format", this.selectedFormat);
+                properties.setProperty("bestandformaat", this.selectedFormat);
                 FileOutputStream outputStream = new FileOutputStream(propertiesPath);
-                properties.store(outputStream, "format used for the loading/saving of metrocards");
+                properties.store(outputStream, "");
             }
             catch (IOException exc) {
                 exc.printStackTrace();

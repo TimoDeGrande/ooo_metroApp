@@ -12,8 +12,8 @@ import view.panels.MetroCardOverviewPane;
 import view.panels.SetupPane;
 
 public class AdminMainPane extends BorderPane {
-	public AdminMainPane(){		
-	    TabPane tabPane = new TabPane(); 	    
+	public AdminMainPane(){
+	    TabPane tabPane = new TabPane();
         MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
 	//maak een controlCenterPane aan
 	//maak een setupPane aan
