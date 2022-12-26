@@ -33,8 +33,7 @@ public class MetroMain extends Application {
 		MetroStationViewController metroStationViewController = new MetroStationViewController(metroStationView, facade);
 		ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController(controlCenterPane, facade);
 
-		controlCenterPaneController.openMetroStation();
-
+		controlCenterPane.openMetrostation();
 
 
 
