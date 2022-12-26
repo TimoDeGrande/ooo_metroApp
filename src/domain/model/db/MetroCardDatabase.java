@@ -35,4 +35,5 @@ public class MetroCardDatabase {
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {
         this.loadSaveStrategy = loadSaveStrategy;
     }
+
 }

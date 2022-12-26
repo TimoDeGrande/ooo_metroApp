@@ -1,12 +1,13 @@
 package view;
 
+import domain.controller.MetroStationViewController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class MetroStationView {
-	
+	private MetroStationViewController controller;
 	private Stage stage = new Stage();		
 	
 	public MetroStationView(){			
@@ -19,5 +20,9 @@ public class MetroStationView {
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		
+	}
+
+	public void setController(MetroStationViewController metroStationViewController) {
+		this.controller = metroStationViewController;
 	}
 }

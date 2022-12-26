@@ -1,14 +1,20 @@
 package view;
 
+import domain.controller.MetroStationViewController;
+import domain.controller.MetroTicketViewController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;	
+import javafx.stage.StageStyle;
+import sun.security.util.PendingException;
+
+import java.util.ArrayList;
 
 public class MetroTicketView {
-	private Stage stage = new Stage();		
+	private Stage stage = new Stage();
+	private MetroTicketViewController controller;
 		
-	public MetroTicketView(){			
+	public MetroTicketView(){
 		stage.setTitle("METROTICKET VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);
@@ -18,5 +24,15 @@ public class MetroTicketView {
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		
+	}
+
+    public void updateMetrocardIDList(ArrayList<Integer> metroCardIds) {
+		//todo make refresh of choicebox with metrocard id's
+//		throw new PendingException("Implement me!");
+		System.out.println();
+    }
+
+	public void setController(MetroTicketViewController metroTicketViewController) {
+		this.controller = metroTicketViewController;
 	}
 }

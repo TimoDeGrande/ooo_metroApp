@@ -16,21 +16,12 @@ import java.util.HashMap;
 public class MetroFacade implements Subject {
     private MetroCardDatabase metroCardDatabase;
 
-    private MetroTicketViewController metroTicketViewController;
-    private MetroStationViewController metroStationViewController;
-    private MetroCardOverviewPaneController metroCardOverviewPaneController;
-    private ControlCenterPaneController controlCenterPaneController;
-
     public MetroFacade() {
         for (MetroEventsEnum eventType : MetroEventsEnum.values()) {
             observers.put(eventType, new ArrayList<Observer>());
         }
         this.metroCardDatabase = new MetroCardDatabase();
-        this.metroTicketViewController = new MetroTicketViewController(this);
-        this.metroStationViewController = new MetroStationViewController(this);
-        this.controlCenterPaneController = new ControlCenterPaneController(this);
 
-        this.addObserver(MetroEventsEnum.OPEN_METROSTATION, new MetroCardOverviewPaneController(this));
     }
 
     public void openMetroStation() {
@@ -40,6 +31,12 @@ public class MetroFacade implements Subject {
         this.updateObservers(MetroEventsEnum.OPEN_METROSTATION);
     }
 
+    public void buyMetroCard() {
+        //todo add metrocard to database
+
+    }
+
+
     public ArrayList<MetroCard> getMetroCardList() {
         return this.metroCardDatabase.getMetroCardList();
     }
@@ -47,4 +44,7 @@ public class MetroFacade implements Subject {
     public ArrayList<Integer> getMetroCardIdList() {
         return this.metroCardDatabase.getMetroCardIdList();
     }
+
+
+
 }

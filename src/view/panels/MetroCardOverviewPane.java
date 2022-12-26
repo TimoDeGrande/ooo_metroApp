@@ -1,28 +1,24 @@
 package view.panels;
 
 
+import domain.controller.MetroCardOverviewPaneController;
 import domain.model.MetroCard;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import sun.security.util.PendingException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MetroCardOverviewPane extends GridPane{
 	private TableView<MetroCard> table = new TableView<>();
 	private ObservableList<MetroCard> cards;
+	private MetroCardOverviewPaneController controller;
 	
 	
 	public MetroCardOverviewPane() {
@@ -57,7 +53,12 @@ public class MetroCardOverviewPane extends GridPane{
 	}
 
 	public void updateMetroCardList(ArrayList<MetroCard> cards) {
-		//todo has to be implemented: replace cards in this class to cards that are given
-		throw new PendingException("Implement me!!");
+		this.cards.remove(0, this.cards.size());
+		this.cards.addAll(cards);
+		this.refresh();
+	}
+
+	public void setController(MetroCardOverviewPaneController metroCardOverviewPaneController) {
+		this.controller = metroCardOverviewPaneController;
 	}
 }
