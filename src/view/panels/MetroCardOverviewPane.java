@@ -53,7 +53,7 @@ public class MetroCardOverviewPane extends GridPane{
 	}
 
 	public void updateMetroCardList(ArrayList<MetroCard> cards) {
-
+		System.out.println("update");
 		this.cards.remove(0, this.cards.size());
 		this.cards.addAll(cards);
 		this.refresh();
@@ -62,8 +62,6 @@ public class MetroCardOverviewPane extends GridPane{
 	public void setController(MetroCardOverviewPaneController metroCardOverviewPaneController) {
 		this.controller = metroCardOverviewPaneController;
 
-		table.setItems(FXCollections.observableArrayList(cards));
-		table.refresh();
 		//todo has to be implemented: replace cards in this class to cards that are given
 		//throw new PendingException("Implement me!!");
 	}

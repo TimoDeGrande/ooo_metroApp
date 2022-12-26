@@ -17,4 +17,8 @@ public interface Subject {
         this.observers.get(event).forEach(e -> e.update(event));
     }
 
+    default Map<MetroEventsEnum, List<Observer>> getObservers() {
+        return this.observers;
+    }
+
 }

@@ -2,6 +2,7 @@ package view.panels;
 
 
 import domain.controller.ControlCenterPaneController;
+import javafx.event.EventHandler;
 import javafx.scene.layout.BorderPane;
 
 
@@ -11,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 public class ControlCenterPane extends GridPane {
-    private ControlCenterPaneController controller = new ControlCenterPaneController(this, null);
+    private ControlCenterPaneController controller;
 
     public ControlCenterPane(){
         this.setPadding(new Insets(5, 5, 5, 5));
@@ -20,7 +21,7 @@ public class ControlCenterPane extends GridPane {
 
         Button button = new Button();
         button.setText("Open metrostation");
-        button.setOnAction(event -> this.openMetrostation());
+        button.setOnAction(event -> openMetrostation());
         this.getChildren().add(button);
     }
 
