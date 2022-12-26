@@ -20,7 +20,7 @@ public class MetroMain extends Application {
 	public void start(Stage primaryStage) {
 		MetroFacade f = new MetroFacade();
 		f.openMetroStation();
-//		AdminView adminView = new AdminView();
+		AdminView adminView = new AdminView();
 //		MetroTicketView metroTicketView = new MetroTicketView();
 //		MetroStationView metroStationView = new MetroStationView();
 //		Map<Integer, MetroCard> list = new TreeMap<>();
