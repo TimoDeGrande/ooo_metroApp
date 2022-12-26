@@ -1,6 +1,7 @@
 package domain.model.db.loadSaveStrategies;
 
 import domain.model.MetroCard;
+import domain.model.db.utilities.ExcelLoadSaveTemplate;
 import domain.model.db.utilities.TextLoadSaveTemplate;
 
 import java.io.File;
@@ -33,9 +34,9 @@ public class MetroCardTextLoadSaveStrategy extends TextLoadSaveTemplate implemen
     }
 
     @Override
-    public Map load(String filename) {
+    public Map load() {
         try {
-            return super.load(new File(filename));
+            return super.load(new File(TextLoadSaveTemplate.filename));
         }catch (IOException e) {
             System.out.println(e.getMessage());
         }

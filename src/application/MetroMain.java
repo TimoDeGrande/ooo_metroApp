@@ -1,6 +1,7 @@
 package application;
 	
 import domain.model.MetroCard;
+import domain.model.MetroFacade;
 import domain.model.db.loadSaveStrategies.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -17,9 +18,11 @@ import java.util.TreeMap;
 public class MetroMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		AdminView adminView = new AdminView();
-		MetroTicketView metroTicketView = new MetroTicketView();
-		MetroStationView metroStationView = new MetroStationView();
+		MetroFacade f = new MetroFacade();
+		f.openMetroStation();
+//		AdminView adminView = new AdminView();
+//		MetroTicketView metroTicketView = new MetroTicketView();
+//		MetroStationView metroStationView = new MetroStationView();
 //		Map<Integer, MetroCard> list = new TreeMap<>();
 //		list.put(1, new MetroCard(1, 10, 2021,3, 59));
 //		list.put(2, new MetroCard(2, 1, 2022,10, 5));
@@ -28,6 +31,7 @@ public class MetroMain extends Application {
 //
 //		LoadSaveStrategy l = LoadSaveStrategyFactory.createLoadSaveStrategy("EXCEL");
 //		System.out.println(l.load("src/bestanden/metrocards2.xls").values().toString());
+
 
 	}
 	

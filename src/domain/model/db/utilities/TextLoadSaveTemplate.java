@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class TextLoadSaveTemplate<K,V> {
+    public final static String filename = "src/bestanden/metrocards.txt";
 
     public final void save(File file, Map<K, V> map) {
         try {

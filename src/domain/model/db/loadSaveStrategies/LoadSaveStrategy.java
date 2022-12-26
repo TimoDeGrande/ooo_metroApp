@@ -10,5 +10,5 @@ import java.util.Map;
 public interface LoadSaveStrategy {
     void save(String filename, Map<Integer, MetroCard> cards);
 
-    Map<Integer, MetroCard> load(String filename);
+    Map<Integer, MetroCard> load();
 }

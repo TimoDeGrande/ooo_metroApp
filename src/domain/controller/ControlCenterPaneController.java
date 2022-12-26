@@ -6,7 +6,7 @@ import view.panels.ControlCenterPane;
 
 public class ControlCenterPaneController implements Observer {
     private Subject subject;
-    private ControlCenterPane view = new ControlCenterPane();
+    private ControlCenterPane view;
 
     public ControlCenterPaneController(Subject subject) {
         this.view = new ControlCenterPane();
@@ -21,4 +21,5 @@ public class ControlCenterPaneController implements Observer {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
 }

@@ -14,9 +14,9 @@ public class MetroCardExcelLoadSaveStrategy extends ExcelLoadSaveTemplate implem
     }
 
     @Override
-    public Map load(String filename) {
+    public Map load() {
         try {
-            return super.load(new File(filename));
+            return super.load(new File(ExcelLoadSaveTemplate.filename));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

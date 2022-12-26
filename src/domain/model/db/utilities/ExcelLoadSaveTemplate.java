@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ExcelLoadSaveTemplate<K, V> {
+    public final static String filename = "src/bestanden/metrocards.xls";
     ExcelPlugin excelPlugin = new ExcelPlugin();
 
     public final void save(File file, Map<K, V> map) {
