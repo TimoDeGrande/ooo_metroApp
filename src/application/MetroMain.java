@@ -1,5 +1,6 @@
 package application;
 	
+import domain.controller.AdminViewController;
 import domain.controller.ControlCenterPaneController;
 import domain.controller.MetroStationViewController;
 import domain.controller.MetroTicketViewController;
@@ -23,17 +24,16 @@ public class MetroMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		MetroFacade facade = new MetroFacade();
-		AdminView adminView = new AdminView();
+
 
 		MetroTicketView metroTicketView = new MetroTicketView();
 		MetroStationView metroStationView = new MetroStationView();
-		ControlCenterPane controlCenterPane = new ControlCenterPane();
 
 		MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroTicketView, facade);
 		MetroStationViewController metroStationViewController = new MetroStationViewController(metroStationView, facade);
-		ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController(controlCenterPane, facade);
+		//ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController(controlCenterPane, facade);
+		AdminViewController adminViewController = new AdminViewController(facade);
 
-		controlCenterPane.setController(controlCenterPaneController);
 //		controlCenterPane.openMetrostation();
 
 

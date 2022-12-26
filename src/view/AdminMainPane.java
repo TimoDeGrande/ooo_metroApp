@@ -1,6 +1,7 @@
 package view;
 
 
+import domain.controller.AdminViewController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -14,7 +15,9 @@ import view.panels.MetroCardOverviewPane;
 import view.panels.SetupPane;
 
 public class AdminMainPane extends BorderPane {
-	public AdminMainPane(){
+    AdminViewController controller;
+
+	public AdminMainPane(AdminViewController controller){
 	    TabPane tabPane = new TabPane();
         MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
 	//maak een controlCenterPane aan
@@ -22,7 +25,8 @@ public class AdminMainPane extends BorderPane {
 
         Tab metroCardOverviewTab = new Tab("Metro cards overview",metroCardOverviewPane);
 
-        ControlCenterPane controlCenterPane = new ControlCenterPane();
+        System.out.println(controller);
+        ControlCenterPane controlCenterPane = new ControlCenterPane(controller);
         Tab controlCenterTab = new Tab("Control Center", controlCenterPane);
 
         SetupPane setupPane = new SetupPane();
@@ -32,4 +36,7 @@ public class AdminMainPane extends BorderPane {
         tabPane.getTabs().add(setupTab);
         this.setCenter(tabPane);
 	}
+    public void setController(AdminViewController adminViewController) {
+        this.controller = adminViewController;
+    }
 }

@@ -1,19 +1,17 @@
 package view.panels;
 
 
-import domain.controller.ControlCenterPaneController;
-import javafx.scene.layout.BorderPane;
+import domain.controller.AdminViewController;
 
-
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 public class ControlCenterPane extends GridPane {
-    private ControlCenterPaneController controller = new ControlCenterPaneController(this, null);
+    private AdminViewController controller;
 
-    public ControlCenterPane(){
+    public ControlCenterPane(AdminViewController controller){
+        this.controller = controller;
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -29,8 +27,8 @@ public class ControlCenterPane extends GridPane {
         this.controller.openMetroStation();
     }
 
-    public void setController(ControlCenterPaneController controlCenterPaneController) {
-        System.out.println("setted controller: " + controlCenterPaneController);
-        this.controller = controlCenterPaneController;
+    public void setController(AdminViewController adminViewController) {
+        System.out.println("setted controller: " + adminViewController);
+        this.controller = adminViewController;
     }
 }
