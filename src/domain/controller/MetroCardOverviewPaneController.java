@@ -15,10 +15,10 @@ public class MetroCardOverviewPaneController implements Observer {
         this.view.setController(this);
 
         this.facade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
+        this.facade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
     }
     @Override
     public void update(MetroEventsEnum e) {
-        System.out.println(this.getClass().getSimpleName() + " updated on " + e.toString() + "!!!");
         ArrayList<MetroCard> cards = this.facade.getMetroCardList();
         this.view.updateMetroCardList(cards);
     }

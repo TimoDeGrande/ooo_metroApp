@@ -6,6 +6,8 @@ import domain.model.Observer;
 import domain.model.Subject;
 import view.MetroStationView;
 
+import java.util.ArrayList;
+
 public class MetroStationViewController implements Observer {
     private MetroFacade facade;
     private MetroStationView view;
@@ -14,11 +16,14 @@ public class MetroStationViewController implements Observer {
         this.view = view;
         this.facade = facade;
         this.view.setController(this);
+
+        this.facade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
+        this.facade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
     }
     @Override
     public void update(MetroEventsEnum e) {
-
-
+        ArrayList<Integer> ids = this.facade.getMetroCardIdList();
+        this.view.updateIdCheckbox(ids);
     }
 
     @Override

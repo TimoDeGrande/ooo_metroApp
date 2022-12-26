@@ -7,6 +7,10 @@ import domain.controller.MetroTicketViewController;
 import domain.model.MetroCard;
 import domain.model.MetroFacade;
 import domain.model.db.loadSaveStrategies.*;
+import domain.model.ticketpricedecorator.Age64PlusDiscount;
+import domain.model.ticketpricedecorator.BasisTicketPrice;
+import domain.model.ticketpricedecorator.ChristmasLeaveDiscount;
+import domain.model.ticketpricedecorator.TicketPrice;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.AdminView;
@@ -24,16 +28,21 @@ import java.util.TreeMap;
 public class MetroMain extends Application {
     @Override
     public void start(Stage primaryStage) {
-        MetroFacade facade = new MetroFacade();
-        AdminView adminView = new AdminView(facade);
+//        MetroFacade facade = new MetroFacade();
+//        AdminView adminView = new AdminView(facade);
+//
+//        MetroTicketView metroTicketView = new MetroTicketView();
+//        MetroStationView metroStationView = new MetroStationView();
+//        MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
+//
+//        MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroTicketView, facade);
+//        MetroStationViewController metroStationViewController = new MetroStationViewController(metroStationView, facade);
+//        MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController(metroCardOverviewPane, facade);
 
-        MetroTicketView metroTicketView = new MetroTicketView();
-        MetroStationView metroStationView = new MetroStationView();
-        MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
+        TicketPrice price = new Age64PlusDiscount(new ChristmasLeaveDiscount(new BasisTicketPrice()));
+        System.out.println(price.getPrice());
+        System.out.println(price.getPriceText());
 
-        MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroTicketView, facade);
-        MetroStationViewController metroStationViewController = new MetroStationViewController(metroStationView, facade);
-        MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController(metroCardOverviewPane, facade);
     }
 
     public static void main(String[] args) {

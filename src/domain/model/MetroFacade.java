@@ -32,8 +32,13 @@ public class MetroFacade implements Subject {
     }
 
     public void buyMetroCard() {
-        //todo add metrocard to database
+        //todo add metrocard to database q: welke parameters?
+//        this.metroCardDatabase.add(new MetroCard(????));
 
+    }
+
+    public void buyMetroCardTickets(MetroCard m) {
+        //todo q: hoeveel tickets moeten erbij komen?
     }
 
 

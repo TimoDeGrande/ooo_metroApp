@@ -5,6 +5,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sun.security.util.PendingException;
+
+import java.util.ArrayList;
 
 public class MetroStationView {
 	private MetroStationViewController controller;
@@ -24,5 +27,10 @@ public class MetroStationView {
 
 	public void setController(MetroStationViewController metroStationViewController) {
 		this.controller = metroStationViewController;
+	}
+
+	public void updateIdCheckbox(ArrayList<Integer> metroCardIds) {
+		//todo update checkbox with all ids
+		throw new PendingException("Implement me!");
 	}
 }

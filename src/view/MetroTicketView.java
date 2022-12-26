@@ -26,9 +26,9 @@ public class MetroTicketView {
 		stage.show();		
 	}
 
-    public void updateMetrocardIDList(ArrayList<Integer> metroCardIds) {
+    public void updateIdCheckbox(ArrayList<Integer> metroCardIds) {
 		//todo make refresh of choicebox with metrocard id's
-//		throw new PendingException("Implement me!");
+		throw new PendingException("Implement me!");
     }
 
 	public void setController(MetroTicketViewController metroTicketViewController) {
