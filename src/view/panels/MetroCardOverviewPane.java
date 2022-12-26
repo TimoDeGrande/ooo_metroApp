@@ -57,7 +57,9 @@ public class MetroCardOverviewPane extends GridPane{
 	}
 
 	public void updateMetroCardList(ArrayList<MetroCard> cards) {
+		table.setItems(FXCollections.observableArrayList(cards));
+		table.refresh();
 		//todo has to be implemented: replace cards in this class to cards that are given
-		throw new PendingException("Implement me!!");
+		//throw new PendingException("Implement me!!");
 	}
 }
