@@ -2,14 +2,12 @@ package view.panels;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.InputMismatchException;
 import java.util.Properties;
 
 public class SetupPane extends GridPane {
@@ -26,20 +24,24 @@ public class SetupPane extends GridPane {
             InputStream inputStream = new FileInputStream(propertiesPath);
             properties.load(inputStream);
             String currFormat = properties.getProperty("bestandformaat");
+
+            //als er in de properties file kortingen staan moet je onderstaande lijn verwijderen en de comments weg doen
+            String[] discounts = {"a", "b", "c"};
+            //String[] discounts = properties.getProperty("actievekortingen").split(",");
             Text currentformattext = new Text();
             currentformattext.setText(String.format("Geselecteerde formaat: %s. Als u dit wil wijzigen kan u de knoppen hieronder gebruiken", currFormat));
             this.add(currentformattext, 0,0,2,1);
-            this.setOptions("Update");
+            this.setOptions("Update", discounts);
         } catch (IOException e) {
             Text error = new Text();
             error.setText("Problemen bij het vinden van de vorige properties file, kies het formaat opnieuw");
             this.add(error, 0,0,2,1);
-            this.setOptions("Save");
+            this.setOptions("Save", null);
         }
 
     }
 
-    private void setOptions(String option){
+    private void setOptions(String option, String[] discounts){
         Button excel = new Button();
         excel.setText("EXCEL");
         excel.setOnAction(event -> this.setSelectedFormat("excel"));
@@ -52,6 +54,30 @@ public class SetupPane extends GridPane {
         this.add(excel,0,1,1,1);
         this.add(tekst,1,1,1,1);
         this.add(save, 0,2,2,1);
+
+        for(int i = 0; i < discounts.length; i++){
+            CheckBox x = new CheckBox();
+            x.setText(discounts[i]);
+            int finalI = i;
+            x.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue){
+                    setActiveDiscount(discounts[finalI]);
+                }
+                else{
+                    rmActiveDiscount(discounts[finalI]);
+                }
+            });
+            this.add(x, 0, 3 + i, 1, 1);
+        }
+    }
+
+    private void setActiveDiscount(String discount){
+        //hier ding toevoegen
+        System.out.println(String.format("korting '%s' geselecteerd", discount));
+    }
+    private void rmActiveDiscount(String discount){
+        //hier ding toevoegen
+        System.out.println(String.format("korting '%s' gedeselecteerd", discount));
     }
 
     private void setSelectedFormat(String selectedFormat){
