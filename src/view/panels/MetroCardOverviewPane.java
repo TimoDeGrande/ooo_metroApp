@@ -6,6 +6,7 @@ import domain.model.MetroCard;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,8 +29,8 @@ public class MetroCardOverviewPane extends GridPane{
 		this.add(new Label("List of Metro cards:"), 0, 0, 1, 1);
 		this.refresh();
 		TableColumn<MetroCard, Integer> colID = new TableColumn<MetroCard, Integer>("card ID");
-		colID.setMinWidth(300);
-		colID.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("ID"));
+		colID.setMinWidth(100);
+		colID.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("cardID"));
 		TableColumn<MetroCard, Integer> colMonth = new TableColumn<MetroCard, Integer>("month");
 		colMonth.setMinWidth(100);
 		colMonth.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("month"));
@@ -38,25 +39,34 @@ public class MetroCardOverviewPane extends GridPane{
 		colYear.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("year"));
 		TableColumn<MetroCard, Integer> colAvailableRides = new TableColumn<MetroCard, Integer>("available rides");
 		colAvailableRides.setMinWidth(100);
-		colAvailableRides.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("available rides"));
+		colAvailableRides.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("availableRides"));
 		TableColumn<MetroCard, Integer> colUsedRides = new TableColumn<MetroCard, Integer>("Total used rides");
 		colUsedRides.setMinWidth(100);
-		colUsedRides.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("total used rides"));
+		colUsedRides.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("totalUsedRides"));
 		table.getColumns().addAll(colID, colMonth, colYear, colAvailableRides, colUsedRides);
 
 		this.getChildren().add(table);
+
+		Button testje = new Button("testje");
+		testje.setOnAction(event -> {
+			this.table.setItems(FXCollections.observableArrayList(new MetroCard(1, 1, 2020, 1, 1)));
+			this.table.refresh();
+		});
+		this.getChildren().add(testje);
 	}
 	public void refresh(){
-		cards = FXCollections.observableArrayList(); // in observable de metrocards ophalen
+		cards = FXCollections.observableArrayList(new MetroCard(1,1,2022,1,1)); // in observable de metrocards ophalen
 		table.setItems(cards);
 		table.refresh();
 	}
 
 	public void updateMetroCardList(ArrayList<MetroCard> cards) {
 		System.out.println("update");
-		this.cards.remove(0, this.cards.size());
+		this.cards.removeAll();
 		this.cards.addAll(cards);
-		this.refresh();
+		this.table.setItems(this.cards);
+		System.out.println(table.getItems().toString());
+		this.table.refresh();
 	}
 
 	public void setController(MetroCardOverviewPaneController metroCardOverviewPaneController) {
