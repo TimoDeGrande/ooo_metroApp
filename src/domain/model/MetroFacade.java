@@ -70,6 +70,10 @@ public class MetroFacade implements Subject {
         return this.metroCardDatabase.getMetroCardIdList();
     }
 
+    public int getMetroGateAmount() {
+        return this.station.getMetroGateAmount();
+    }
+
 
 
 }
