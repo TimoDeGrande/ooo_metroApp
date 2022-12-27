@@ -1,6 +1,8 @@
 package domain.model;
 
-import java.util.ArrayList;
+import domain.model.metroGateStates.Inactive;
+import domain.model.metroGateStates.MetroGateState;
+
 import java.util.HashMap;
 
 public class MetroStation {
@@ -14,5 +16,15 @@ public class MetroStation {
         gate.setId(nextId);
         this.gates.put(gate.getId(), gate);
         nextId++;
+    }
+
+    public void activateMetroGate(int id) {
+        MetroGateState state = new Active();
+        this.gates.get(id).setState(state);
+    }
+
+    public void deactivateMetroGate(int id) {
+        MetroGateState state = new Inactive();
+        this.gates.get(id).setState(state);
     }
 }

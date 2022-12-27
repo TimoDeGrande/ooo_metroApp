@@ -10,6 +10,7 @@ import domain.model.db.loadSaveStrategies.LoadSaveStrategyEnum;
 import domain.model.db.loadSaveStrategies.LoadSaveStrategyFactory;
 import domain.model.ticketpricedecorator.TicketPriceFactory;
 import view.MetroStationView;
+import view.MetroTicketView;
 import view.panels.MetroCardOverviewPane;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import java.util.HashMap;
 public class MetroFacade implements Subject {
     private MetroCardDatabase metroCardDatabase;
     private MetroStation station;
+
+    private MetroTicketView gate;
 
     public MetroFacade() {
         for (MetroEventsEnum eventType : MetroEventsEnum.values()) {
@@ -68,6 +71,14 @@ public class MetroFacade implements Subject {
 
     public ArrayList<Integer> getMetroCardIdList() {
         return this.metroCardDatabase.getMetroCardIdList();
+    }
+
+    public void activateMetroGate(int id) {
+        this.station.activateMetroGate(id);
+    }
+
+    public void decativateMetroGate(int id) {
+        this.station.deactivateMetroGate(id);
     }
 
 

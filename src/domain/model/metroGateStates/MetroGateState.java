@@ -4,16 +4,30 @@ import domain.model.MetroCard;
 import domain.model.MetroGate;
 
 public interface MetroGateState {
+    MetroGateState closedState = new Open();
+    MetroGateState inactiveState = new Inactive();
+
+    MetroGateState openState = new Open();
     default void activate(MetroGate gate) {
-        throw new IllegalArgumentException("");
+
+        gate.setState(closedState);
     }
 
     default void deactivate(MetroGate gate) {
-        throw new IllegalArgumentException("");
+        gate.setState(inactiveState);
     }
 
     default void scan(MetroGate gate, MetroCard card) {
-        throw new IllegalArgumentException("");
+        if (gate.getState() == inactiveState) {
+            throw new IllegalArgumentException("State is inactive");
+
+        }
+        if (card.getAvailableRides() == 0) {
+            throw new IllegalArgumentException("Card has 0 rides left");
+        }
+        if (card.getAvailableRides() != 0 && gate.getState() == closedState) {
+            gate.setState(openState);
+        }
     }
 
     default void walkThroughGate(MetroGate gate) {

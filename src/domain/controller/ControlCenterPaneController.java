@@ -1,9 +1,6 @@
 package domain.controller;
 
-import domain.model.MetroEventsEnum;
-import domain.model.MetroFacade;
-import domain.model.Observer;
-import domain.model.Subject;
+import domain.model.*;
 import view.panels.ControlCenterPane;
 
 public class ControlCenterPaneController implements Observer {
@@ -27,6 +24,14 @@ public class ControlCenterPaneController implements Observer {
     @Override
     public void setSubject(Subject subject) {
         this.facade = (MetroFacade) subject;
+    }
+
+    public void activateMetroGate(int id) {
+        this.facade.activateMetroGate(id);
+    }
+
+    public void deactivateMetroGate(int id) {
+        this.facade.decativateMetroGate(id);
     }
 
 }

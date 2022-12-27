@@ -24,7 +24,7 @@ public class MetroStationView {
 		Scene scene = new Scene(root, 650, 300);			
 		stage.setScene(scene);
 		stage.sizeToScene();			
-		stage.show();		
+		stage.show();
 	}
 
 	public void setController(MetroStationViewController metroStationViewController) {
