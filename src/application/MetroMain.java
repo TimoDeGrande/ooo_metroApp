@@ -6,6 +6,7 @@ import domain.controller.MetroStationViewController;
 import domain.controller.MetroTicketViewController;
 import domain.model.MetroCard;
 import domain.model.MetroFacade;
+import domain.model.MetroGate;
 import domain.model.db.loadSaveStrategies.*;
 import domain.model.ticketpricedecorator.*;
 import javafx.application.Application;
@@ -39,8 +40,10 @@ public class MetroMain extends Application {
         System.out.println(price.getPrice());
         System.out.println(price.getPriceText());
 
-
-
+//        MetroGate m = new MetroGate();
+//        System.out.println(m.getState());
+//        m.getState().activate(m);
+//        System.out.println(m.getState());
 
 
     }

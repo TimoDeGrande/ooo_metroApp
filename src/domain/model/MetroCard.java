@@ -73,11 +73,10 @@ public class MetroCard {
         return totalUsedRides;
     }
 
-    public void scan() {
-        //todo wat als availbleRides 0 is?
-        //tijdelijke oplossing:
-        if (availableRides == 0) throw new DomainException("kaart leeg.");
+    public boolean scan() {
+        if (availableRides == 0) return false;
         this.totalUsedRides++;
         this.availableRides--;
+        return true;
     }
 }
