@@ -6,8 +6,8 @@ import java.util.HashMap;
 public class MetroStation {
     private int nextId = 1;
     private HashMap<Integer, MetroGate> gates = new HashMap<>();
-    public void scanMetroGate(int id) {
-        this.gates.get(id).scanMetroGate();
+    public void scanMetroGate(int id, MetroCard card) {
+        this.gates.get(id).scanMetroGate(card);
     }
 
     public void addMetroGate(MetroGate gate) {

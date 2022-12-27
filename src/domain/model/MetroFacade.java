@@ -46,8 +46,8 @@ public class MetroFacade implements Subject {
     }
 
     public void scanMetroGate(int metroCardId, int metroGateId) {
-        this.metroCardDatabase.get(metroCardId).scan();
-        this.station.scanMetroGate(metroGateId);
+        MetroCard card = this.metroCardDatabase.get(metroCardId);
+        this.station.scanMetroGate(metroGateId, card);
     }
 
     public double getPrice(boolean is24Min, boolean is64Plus, boolean isStudent, MetroCard m) {
