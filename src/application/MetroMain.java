@@ -25,11 +25,12 @@ public class MetroMain extends Application {
     @Override
     public void start(Stage primaryStage) {
         MetroFacade facade = new MetroFacade();
-        AdminView adminView = new AdminView(facade);
 
         MetroTicketView metroTicketView = new MetroTicketView();
         MetroStationView metroStationView = new MetroStationView();
         MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
+        AdminView adminView = new AdminView(facade, metroCardOverviewPane);
+
 
         MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroTicketView, facade);
         MetroStationViewController metroStationViewController = new MetroStationViewController(metroStationView, facade);

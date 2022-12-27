@@ -16,11 +16,11 @@ import view.panels.MetroCardOverviewPane;
 import view.panels.SetupPane;
 
 public class AdminMainPane extends BorderPane {
-	public AdminMainPane(MetroFacade facade){
+	public AdminMainPane(MetroFacade facade, MetroCardOverviewPane overviewPane){
 	    TabPane tabPane = new TabPane();
-        MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
+        //MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
 
-        Tab metroCardOverviewTab = new Tab("Metro cards overview",metroCardOverviewPane);
+        Tab metroCardOverviewTab = new Tab("Metro cards overview",overviewPane);
 
         //maak een controlCenterPane aan
         ControlCenterPane controlCenterPane = new ControlCenterPane();
