@@ -15,4 +15,8 @@ public class MetroStation {
         this.gates.put(gate.getId(), gate);
         nextId++;
     }
+
+    public int getMetroGateAmount(){
+        return this.gates.size();
+    }
 }

@@ -34,17 +34,17 @@ public class MetroStationView {
 		this.controller = metroStationViewController;
 	}
 
-	public void updateIdCheckbox(ArrayList<Integer> metroCardIds) {
+	public void updateIdCheckbox(ArrayList<Integer> metroCardIds, int gates) {
 		GridPane root = new GridPane();
-		root = startMetroSim(root, metroCardIds);
+		root = startMetroSim(root, metroCardIds, gates);
 		Scene scene = new Scene(root, 650, 300);
 		this.stage.setScene(scene);
 		stage.sizeToScene();
 		stage.show();
 	}
 
-	public GridPane startMetroSim(GridPane root, ArrayList<Integer> metroCardIds){
-		for(int i = 0; i < 4; i++){
+	public GridPane startMetroSim(GridPane root, ArrayList<Integer> metroCardIds, int gates){
+		for(int i = 0; i < gates; i++){
 			ChoiceBox test = new ChoiceBox();
 			test.setItems(FXCollections.observableArrayList(metroCardIds));
 			VBox box = new VBox();
