@@ -6,17 +6,20 @@ import domain.model.MetroCard;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import sun.security.util.PendingException;
+import sun.awt.windows.WPrinterJob;
 
 import java.util.ArrayList;
 
 
 public class MetroCardOverviewPane extends GridPane {
+
     private TableView<MetroCard> table = new TableView<>();
     private ObservableList<MetroCard> cards;
     private MetroCardOverviewPaneController controller;
@@ -30,7 +33,7 @@ public class MetroCardOverviewPane extends GridPane {
         this.refresh();
         TableColumn<MetroCard, Integer> colID = new TableColumn<MetroCard, Integer>("card ID");
         colID.setMinWidth(300);
-        colID.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("ID"));
+        colID.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("cardID"));
         TableColumn<MetroCard, Integer> colMonth = new TableColumn<MetroCard, Integer>("month");
         colMonth.setMinWidth(100);
         colMonth.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("month"));
@@ -39,24 +42,28 @@ public class MetroCardOverviewPane extends GridPane {
         colYear.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("year"));
         TableColumn<MetroCard, Integer> colAvailableRides = new TableColumn<MetroCard, Integer>("available rides");
         colAvailableRides.setMinWidth(100);
-        colAvailableRides.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("available rides"));
+
+        colAvailableRides.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("availableRides"));
         TableColumn<MetroCard, Integer> colUsedRides = new TableColumn<MetroCard, Integer>("Total used rides");
         colUsedRides.setMinWidth(100);
-        colUsedRides.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("total used rides"));
+        colUsedRides.setCellValueFactory(new PropertyValueFactory<MetroCard, Integer>("totalUsedRides"));
         table.getColumns().addAll(colID, colMonth, colYear, colAvailableRides, colUsedRides);
 
         this.getChildren().add(table);
     }
 
-    public void refresh() {
+    public void refresh(){
         cards = FXCollections.observableArrayList(); // in observable de metrocards ophalen
         table.setItems(cards);
         table.refresh();
     }
 
     public void updateMetroCardList(ArrayList<MetroCard> cards) {
-        this.cards = FXCollections.observableArrayList(cards);
-        table.setItems(this.cards);
+        ObservableList<MetroCard> observableCards = FXCollections.observableArrayList(cards);
+        this.cards.clear();
+        this.cards.addAll(cards);
+        table.setItems(observableCards);
+        System.out.println(this.cards);
         table.refresh();
     }
 

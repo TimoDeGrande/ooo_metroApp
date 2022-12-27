@@ -8,6 +8,8 @@ import domain.model.db.MetroCardDatabase;
 import domain.model.db.loadSaveStrategies.LoadSaveStrategy;
 import domain.model.db.loadSaveStrategies.LoadSaveStrategyEnum;
 import domain.model.db.loadSaveStrategies.LoadSaveStrategyFactory;
+import domain.model.ticketpricedecorator.TicketPriceFactory;
+import view.MetroStationView;
 import view.panels.MetroCardOverviewPane;
 
 import java.util.ArrayList;
@@ -15,12 +17,14 @@ import java.util.HashMap;
 
 public class MetroFacade implements Subject {
     private MetroCardDatabase metroCardDatabase;
+    private MetroStation station;
 
     public MetroFacade() {
         for (MetroEventsEnum eventType : MetroEventsEnum.values()) {
             observers.put(eventType, new ArrayList<Observer>());
         }
         this.metroCardDatabase = new MetroCardDatabase();
+        this.station = new MetroStation();
 
     }
 
@@ -41,6 +45,22 @@ public class MetroFacade implements Subject {
         //todo q: hoeveel tickets moeten erbij komen?
     }
 
+    public void scanMetroGate(int metroCardId, int metroGateId) {
+        this.metroCardDatabase.get(metroCardId).scan();
+        this.station.scanMetroGate(metroGateId);
+    }
+
+    public double getPrice(boolean is24Min, boolean is64Plus, boolean isStudent, MetroCard m) {
+        return TicketPriceFactory.createTicketPrice(is24Min, is64Plus, isStudent, m).getPrice();
+    }
+
+    public String getPriceText(boolean is24Min, boolean is64Plus, boolean isStudent, MetroCard m) {
+        return TicketPriceFactory.createTicketPrice(is24Min, is64Plus, isStudent, m).getPriceText();
+    }
+
+    public ArrayList<String> getMetroTicketDiscountList() {
+        return TicketPriceFactory.getAllActiveDiscounts();
+    }
 
     public ArrayList<MetroCard> getMetroCardList() {
         return this.metroCardDatabase.getMetroCardList();

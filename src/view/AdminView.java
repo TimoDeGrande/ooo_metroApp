@@ -1,11 +1,13 @@
 package view;
 
+import domain.controller.MetroCardOverviewPaneController;
 import domain.model.MetroFacade;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;	
+import javafx.stage.StageStyle;
+import view.panels.MetroCardOverviewPane;
 
 public class AdminView {
 	private Stage stage = new Stage();		
@@ -17,7 +19,10 @@ public class AdminView {
 		stage.setY(5);
 		Group root = new Group();
 		Scene scene = new Scene(root, 690, 680);
+
 		BorderPane borderPane = new AdminMainPane(facade);
+
+
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());
 		root.getChildren().add(borderPane);

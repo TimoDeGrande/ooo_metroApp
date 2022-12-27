@@ -48,7 +48,7 @@ public class TicketPriceFactory {
         return instance;
     }
 
-    private static ArrayList<String> getAllActiveDiscounts() {
+    public static ArrayList<String> getAllActiveDiscounts() {
         ArrayList<String> activeDiscounts = new ArrayList<>();
         try {
             Properties properties = new Properties();
