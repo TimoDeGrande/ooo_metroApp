@@ -114,14 +114,10 @@ public class SetupPane extends GridPane {
         if(this.selectedFormat != null){
             try {
                 Properties properties = new Properties();
-<<<<<<< HEAD
+
                 InputStream is = new FileInputStream(propertiesPath);
                 properties.load(is);
-=======
-                FileInputStream inputStream = new FileInputStream(propertiesPath);
-                properties.load(inputStream);
 
->>>>>>> 16921d18002abd1dd46c4d50fe77e9b38d0983d4
                 properties.setProperty("bestandformaat", this.selectedFormat);
                 FileOutputStream os = new FileOutputStream(propertiesPath);
                 properties.store(os, "");
