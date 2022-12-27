@@ -1,8 +1,10 @@
 package view;
 
 import domain.controller.MetroStationViewController;
+import javafx.collections.FXCollections;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sun.security.util.PendingException;
@@ -30,7 +32,13 @@ public class MetroStationView {
 	}
 
 	public void updateIdCheckbox(ArrayList<Integer> metroCardIds) {
-		//todo update checkbox with all ids
-		throw new PendingException("Implement me!");
+		ChoiceBox choiceBox = new ChoiceBox();
+		choiceBox.setItems(FXCollections.observableArrayList(metroCardIds));
+		Group root = new Group();
+		root.getChildren().add(choiceBox);
+		Scene scene = new Scene(root, 650, 300);
+		this.stage.setScene(scene);
+		stage.sizeToScene();
+		stage.show();
 	}
 }
