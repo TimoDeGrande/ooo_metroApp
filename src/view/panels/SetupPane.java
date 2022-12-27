@@ -42,10 +42,10 @@ public class SetupPane extends GridPane {
     private void setOptions(String option){
         Button excel = new Button();
         excel.setText("EXCEL");
-        excel.setOnAction(event -> this.setSelectedFormat("excel"));
+        excel.setOnAction(event -> this.setSelectedFormat("EXCEL"));
         Button tekst = new Button();
         tekst.setText("TEXT");
-        tekst.setOnAction(event -> this.setSelectedFormat("tekst"));
+        tekst.setOnAction(event -> this.setSelectedFormat("TEXT"));
         Button save = new Button();
         save.setText(option);
         save.setOnAction(event -> this.saveFormat(event));
@@ -61,9 +61,11 @@ public class SetupPane extends GridPane {
         if(this.selectedFormat != null){
             try {
                 Properties properties = new Properties();
+                InputStream is = new FileInputStream(propertiesPath);
+                properties.load(is);
                 properties.setProperty("bestandformaat", this.selectedFormat);
-                FileOutputStream outputStream = new FileOutputStream(propertiesPath);
-                properties.store(outputStream, "");
+                FileOutputStream os = new FileOutputStream(propertiesPath);
+                properties.store(os, "");
             }
             catch (IOException exc) {
                 exc.printStackTrace();
