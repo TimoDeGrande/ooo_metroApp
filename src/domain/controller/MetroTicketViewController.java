@@ -36,4 +36,9 @@ public class MetroTicketViewController implements Observer {
     public void buyMetroCard() {
         this.facade.buyMetroCard();
     }
+
+
+    public void buyMetroTickets(MetroCard m, int extraRides) {
+        this.facade.buyMetroCardTickets(m, extraRides);
+    }
 }

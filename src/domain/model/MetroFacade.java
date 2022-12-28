@@ -47,8 +47,13 @@ public class MetroFacade implements Subject {
 
     }
 
-    public void buyMetroCardTickets(MetroCard m) {
-        //todo q: hoeveel tickets moeten erbij komen?
+    public void buyMetroCardTickets(MetroCard m, int rides) {
+        int currentlyAvailableRides = m.getAvailableRides();
+        int newRidesAmount = currentlyAvailableRides + rides;
+        m.setAvailableRides(newRidesAmount);
+        this.updateObservers(MetroEventsEnum.BUY_METROCARD);
+
+
     }
 
     public void scanMetroGate(int metroCardId, int metroGateId) {

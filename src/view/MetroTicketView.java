@@ -127,4 +127,10 @@ public class MetroTicketView {
 	public void buyMetroCard(){
 		controller.buyMetroCard();
 	}
+
+	public void buyMetroCardTickets(MetroCard m, int extraRides) {
+		controller.buyMetroTickets(m, extraRides);
+	}
+
+
 }
