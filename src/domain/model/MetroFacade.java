@@ -43,6 +43,7 @@ public class MetroFacade implements Subject {
         int year = date.getYear();
         int id = metroCardDatabase.getMetroCardIdList().size() + 1;
         this.metroCardDatabase.add(new MetroCard(id, month, year, 0,0));
+        this.metroCardDatabase.save();
         this.updateObservers(MetroEventsEnum.BUY_METROCARD);
 
     }
@@ -51,9 +52,8 @@ public class MetroFacade implements Subject {
         int currentlyAvailableRides = m.getAvailableRides();
         int newRidesAmount = currentlyAvailableRides + rides;
         m.setAvailableRides(newRidesAmount);
+        this.metroCardDatabase.save();
         this.updateObservers(MetroEventsEnum.BUY_METROCARD);
-
-
     }
 
     public void scanMetroGate(int metroCardId, int metroGateId) {
