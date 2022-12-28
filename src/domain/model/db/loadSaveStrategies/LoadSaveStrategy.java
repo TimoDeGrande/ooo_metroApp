@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public interface LoadSaveStrategy {
-    void save(Map<Integer, MetroCard> cards);
+    void save(String filename, Map<Integer, MetroCard> cards);
 
     Map<Integer, MetroCard> load();
 }

@@ -1,9 +1,10 @@
 package domain.controller;
 
-import domain.model.*;
+import domain.model.MetroEventsEnum;
+import domain.model.MetroFacade;
+import domain.model.Observer;
+import domain.model.Subject;
 import view.panels.ControlCenterPane;
-
-import java.util.HashMap;
 
 public class ControlCenterPaneController implements Observer {
     private MetroFacade facade;
@@ -13,19 +14,10 @@ public class ControlCenterPaneController implements Observer {
         this.view = view;
         this.facade = facade;
         this.view.setController(this);
-
-        this.facade.addObserver(MetroEventsEnum.BUY_METROCARD_TICKETS, this);
-        this.facade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
-        this.facade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
-        this.facade.addObserver(MetroEventsEnum.UPDATE_GATE, this);
     }
     @Override
     public void update(MetroEventsEnum event) {
-        this.view.initOptions();
-    }
 
-    public HashMap<Integer, MetroGate> getGates(){
-        return this.facade.getMetroGates();
     }
 
     public void openMetroStation() {

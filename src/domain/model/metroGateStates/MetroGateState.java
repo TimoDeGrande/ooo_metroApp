@@ -5,19 +5,19 @@ import domain.model.MetroGate;
 
 public interface MetroGateState {
     default void activate(MetroGate gate) {
-        gate.setState(new Closed());
+        throw new IllegalArgumentException("");
     }
 
     default void deactivate(MetroGate gate) {
-        gate.setState(new Inactive());
+        throw new IllegalArgumentException("");
     }
 
     default void scan(MetroGate gate, MetroCard card) {
-        gate.setState(new Open());
+        throw new IllegalArgumentException("");
     }
 
     default void walkThroughGate(MetroGate gate) {
-        gate.setState(new Open());
+        throw new IllegalArgumentException("");
     }
 
     default void createWarning(MetroGate gate) {
@@ -27,5 +27,4 @@ public interface MetroGateState {
     default void createAlert(MetroGate gate) {
         throw new IllegalArgumentException("");
     }
-    String toString();
 }

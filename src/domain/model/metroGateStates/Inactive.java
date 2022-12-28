@@ -7,10 +7,6 @@ public class Inactive implements MetroGateState {
         public void activate(MetroGate gate) {
             gate.setState(new Closed());
         }
-    @Override
-    public String toString(){
-        return "Inactive";
-    }
 
 
 

@@ -1,12 +1,12 @@
 package domain.model;
 
+import domain.model.metroGateStates.Closed;
 import domain.model.metroGateStates.Inactive;
 import domain.model.metroGateStates.MetroGateState;
 
 public class MetroGate {
     private int id;
     private MetroGateState currentState;
-    private int scans = 0;
 
     public MetroGate() {
         this.currentState = new Inactive();
@@ -14,9 +14,6 @@ public class MetroGate {
 
     public void scanMetroGate(MetroCard c) {
         this.currentState.scan(this, c);
-    }
-    public void walkThroughGate(){
-        this.currentState.walkThroughGate(this);
     }
 
     public void setId(int id) {
@@ -33,11 +30,5 @@ public class MetroGate {
 
     public MetroGateState getState() {
         return currentState;
-    }
-    public void scan(){
-        this.scans++;
-    }
-    public int getScans(){
-        return scans;
     }
 }

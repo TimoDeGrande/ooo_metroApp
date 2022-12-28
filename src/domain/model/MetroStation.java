@@ -28,7 +28,4 @@ public class MetroStation {
     public int getMetroGateAmount(){
         return this.gates.size();
     }
-    public HashMap<Integer, MetroGate> getGates(){
-        return this.gates;
-    }
 }

@@ -12,7 +12,6 @@ import domain.model.ticketpricedecorator.TicketPriceFactory;
 import view.MetroStationView;
 import view.panels.MetroCardOverviewPane;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -38,23 +37,12 @@ public class MetroFacade implements Subject {
 
     public void buyMetroCard() {
         //todo add metrocard to database q: welke parameters?
-        LocalDate date = LocalDate.now();
-        int month = date.getMonthValue();
-        int year = date.getYear();
-        int id = metroCardDatabase.getMetroCardIdList().size() + 1;
-        this.metroCardDatabase.add(new MetroCard(id, month, year, 0,0));
-        this.metroCardDatabase.save();
-        this.updateObservers(MetroEventsEnum.BUY_METROCARD);
+//        this.metroCardDatabase.add(new MetroCard(????));
 
     }
 
-    public void buyMetroCardTickets(MetroCard m, int rides) {
-        int currentlyAvailableRides = m.getAvailableRides();
-        int newRidesAmount = currentlyAvailableRides + rides;
-        m.setAvailableRides(newRidesAmount);
-        this.metroCardDatabase.save();
-        this.updateObservers(MetroEventsEnum.BUY_METROCARD);
-        this.updateObservers(MetroEventsEnum.BUY_METROCARD_TICKETS);
+    public void buyMetroCardTickets(MetroCard m) {
+        //todo q: hoeveel tickets moeten erbij komen?
     }
 
     public void scanMetroGate(int metroCardId, int metroGateId) {
@@ -86,24 +74,9 @@ public class MetroFacade implements Subject {
         return this.station.getMetroGateAmount();
     }
 
-    public HashMap<Integer, MetroGate> getMetroGates(){
-        return this.station.getGates();
-    }
-
     public void updateMetroGatesAmount(ArrayList<MetroGate> gates){
         this.station.updateMetroGatesAmount(gates);
     }
 
 
-    public void updateGates(){
-        this.updateObservers(MetroEventsEnum.BUY_METROCARD);
-    }
-
-    public void updateRidesAfterScan(MetroCard m) {
-        int newRidesAmount = m.getAvailableRides() - 1;
-        m.setAvailableRides(newRidesAmount);
-        this.metroCardDatabase.save();
-        this.updateObservers(MetroEventsEnum.BUY_METROCARD);
-
-    }
 }

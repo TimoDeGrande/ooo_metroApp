@@ -1,9 +1,6 @@
 package view;
 
 import domain.controller.MetroStationViewController;
-import domain.model.MetroEventsEnum;
-import domain.model.MetroGate;
-import domain.model.MetroCard;
 import javafx.collections.FXCollections;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -17,14 +14,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MetroStationView {
 	private MetroStationViewController controller;
 	private Stage stage = new Stage();
 	private ChoiceBox ids = new ChoiceBox();
 	private GridPane root = new GridPane();
-	private int gatesAmount;
+	private int gates = 0;
 
 	public MetroStationView(){
 		stage.setTitle("METRO STATION VIEW");
@@ -48,14 +44,14 @@ public class MetroStationView {
 		this.updateView();
 	}
 
-	public void updateGatesAmount(int gates) {
-		this.gatesAmount = gates;
+	public void updateGates(int gates) {
+		this.gates = gates;
 		this.updateView();
 	}
 
 	public void updateView(){
 		GridPane newRoot = new GridPane();
-		for(int i = 0; i < this.gatesAmount; i++){
+		for(int i = 0; i < this.gates; i++){
 			ChoiceBox choiceBox = new ChoiceBox();
 			choiceBox.setItems(this.ids.getItems());
 			VBox box = new VBox();
@@ -63,26 +59,8 @@ public class MetroStationView {
 			Button scan = new Button("scan");
 			Button walkgate = new Button("Walk through gate");
 			Text error = new Text();
-			int finalI = i + 1;
-			scan.setOnAction(event -> {
-				if(choiceBox.getValue() != null){
-					error.setText("scanned gate");
-					this.scanCard(finalI, (String) choiceBox.getValue());
-				}
-				else{
-					error.setText("please choose a card id");
-				}
-			});
-			walkgate.setOnAction(event -> {
-				if(choiceBox.getValue() != null){
-					error.setText("pressed walk through gate");
-					this.walkThroughGate(finalI);
-				}
-				else{
-					error.setText("please choose a card id");
-				}
-
-			});
+			scan.setOnAction(event -> error.setText("pressed scan"));
+			walkgate.setOnAction(event -> error.setText("pressed walk through gate"));
 			box.getChildren().addAll(text, choiceBox, scan, walkgate, error);
 			newRoot.add(box, i,0);
 		}
@@ -92,17 +70,22 @@ public class MetroStationView {
 		stage.show();
 	}
 
-	public void scanCard(int gateId,String cardId){
-		controller.getGates().get(gateId).scanMetroGate(this.controller.getMetroCard(Integer.parseInt(cardId)));
-		controller.getGates().get(gateId).scan();
-		controller.update(MetroEventsEnum.BUY_METROCARD);
-	}
-	public void walkThroughGate(int gateId){
-		controller.getGates().get(gateId).walkThroughGate();
-	}
 
-	public void updateRidesAfterScan(MetroCard m) {
-		//todo fiks dat de rides wel degelijk upgedate worden op overview, en worden opgeslagen in de txt/xls file
-		controller.updateRidesAfterScan(m);
+
+	public GridPane startMetroSim(GridPane root, ArrayList<Integer> metroCardIds, int gates){
+		for(int i = 0; i < gates; i++){
+			ChoiceBox test = new ChoiceBox();
+			test.setItems(FXCollections.observableArrayList(metroCardIds));
+			VBox box = new VBox();
+			Text text = new Text(String.format("Gate %s", i + 1));
+			Button scan = new Button("scan");
+			Button walkgate = new Button("Walk through gate");
+			Text error = new Text();
+			scan.setOnAction(event -> error.setText("pressed scan"));
+			walkgate.setOnAction(event -> error.setText("pressed walk through gate"));
+			box.getChildren().addAll(text, test, scan, walkgate, error);
+			root.add(box, i,0);
+		}
+		return root;
 	}
 }

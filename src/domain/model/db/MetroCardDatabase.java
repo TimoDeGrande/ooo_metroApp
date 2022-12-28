@@ -23,8 +23,8 @@ public class MetroCardDatabase {
         this.metrocards = (HashMap<Integer, MetroCard>) this.loadSaveStrategy.load();
     }
 
-    public void save() {
-        this.loadSaveStrategy.save(this.metrocards);
+    public void save(String filename) {
+        this.loadSaveStrategy.save(filename, this.metrocards);
     }
 
     public ArrayList<MetroCard> getMetroCardList() {

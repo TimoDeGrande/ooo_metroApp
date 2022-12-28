@@ -11,17 +11,11 @@ public class Open implements MetroGateState {
 
     @Override
     public void scan(MetroGate gate, MetroCard card) {
-        //als je twee keer na elkaar scant
         this.createWarning(gate);
     }
 
     @Override
     public void createWarning(MetroGate gate) {
-        System.out.println("je hebt twee keer na elkaar gescand eikel");
-    }
-
-    @Override
-    public String toString(){
-        return "Open";
+        //todo bericht sturen dat dit niet kan.
     }
 }

@@ -15,15 +15,11 @@ public class Closed implements MetroGateState {
 
     @Override
     public void createAlert(MetroGate gate) {
-        System.out.println("je hebt niet gescand");
+        //todo make alert
     }
 
     @Override
     public void walkThroughGate(MetroGate gate) {
         this.createAlert(gate);
-    }
-    @Override
-    public String toString(){
-        return "Closed";
     }
 }

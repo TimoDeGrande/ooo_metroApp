@@ -18,10 +18,6 @@ public class MetroTicketViewController implements Observer {
         this.facade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
     }
 
-    public MetroCard getMetroCard(int id){
-        return this.facade.getMetroCardList().get(id);
-    }
-
     @Override
     public void update(MetroEventsEnum e) {
         ArrayList<Integer> metroCardIds = this.facade.getMetroCardIdList();
@@ -31,14 +27,5 @@ public class MetroTicketViewController implements Observer {
     @Override
     public void setSubject(Subject s) {
         this.facade = (MetroFacade) s;
-    }
-
-    public void buyMetroCard() {
-        this.facade.buyMetroCard();
-    }
-
-
-    public void buyMetroTickets(MetroCard m, int extraRides) {
-        this.facade.buyMetroCardTickets(m, extraRides);
     }
 }
