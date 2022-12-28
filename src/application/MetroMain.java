@@ -7,6 +7,7 @@ import domain.controller.MetroTicketViewController;
 import domain.model.MetroCard;
 import domain.model.MetroFacade;
 import domain.model.MetroGate;
+import domain.model.MetroStation;
 import domain.model.db.loadSaveStrategies.*;
 import domain.model.ticketpricedecorator.*;
 import javafx.application.Application;
@@ -31,10 +32,12 @@ public class MetroMain extends Application {
 
          MetroTicketView metroTicketView = new MetroTicketView();
          MetroStationView metroStationView = new MetroStationView();
+
          MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
          ControlCenterPane controlCenterPane = new ControlCenterPane();
-        SetupPane setupPane = new SetupPane();
+         SetupPane setupPane = new SetupPane(facade);
          AdminView adminView = new AdminView(facade, metroCardOverviewPane, controlCenterPane, setupPane);
+
 
          MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroTicketView, facade);
          MetroStationViewController metroStationViewController = new MetroStationViewController(metroStationView, facade);
@@ -45,6 +48,16 @@ public class MetroMain extends Application {
         TicketPrice price = TicketPriceFactory.createTicketPrice(true, false, true, m);
         System.out.println(price.getPrice());
         System.out.println(price.getPriceText());
+
+        ArrayList<MetroGate> gates = new ArrayList<>();
+        MetroGate metroGate1 = new MetroGate();
+        MetroGate metroGate2 = new MetroGate();
+        MetroGate metroGate3 = new MetroGate();
+        gates.add(metroGate1);
+        gates.add(metroGate2);
+        gates.add(metroGate3);
+        facade.updateMetroGatesAmount(gates);
+
 
 //        MetroGate m = new MetroGate();
 //        System.out.println(m.getState());
