@@ -1,9 +1,6 @@
 package domain.controller;
 
-import domain.model.MetroEventsEnum;
-import domain.model.MetroFacade;
-import domain.model.Observer;
-import domain.model.Subject;
+import domain.model.*;
 import view.MetroStationView;
 
 import java.util.ArrayList;
@@ -24,9 +21,13 @@ public class MetroStationViewController implements Observer {
     public void update(MetroEventsEnum e) {
         ArrayList<Integer> ids = this.facade.getMetroCardIdList();
         this.view.updateIdCheckbox(ids);
-        this.view.updateGates(this.facade.getMetroGateAmount()); //correct line
-        //this.view.updateGates(4); //test line
+        this.view.updateGatesAmount(this.facade.getMetroGateAmount()); //correct line
+        this.view.updateGatesList(this.facade.getMetroGates());
 
+    }
+
+    public MetroCard getMetroCard(int id){
+        return this.facade.getMetroCardList().get(id);
     }
 
     @Override

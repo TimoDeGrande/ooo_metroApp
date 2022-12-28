@@ -1,6 +1,5 @@
 package domain.model;
 
-import domain.model.metroGateStates.Closed;
 import domain.model.metroGateStates.Inactive;
 import domain.model.metroGateStates.MetroGateState;
 
@@ -14,6 +13,9 @@ public class MetroGate {
 
     public void scanMetroGate(MetroCard c) {
         this.currentState.scan(this, c);
+    }
+    public void walkThroughGate(){
+        this.currentState.walkThroughGate(this);
     }
 
     public void setId(int id) {
