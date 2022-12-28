@@ -1,6 +1,7 @@
 package view;
 
 import domain.controller.MetroStationViewController;
+import domain.model.MetroCard;
 import javafx.collections.FXCollections;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -87,5 +88,9 @@ public class MetroStationView {
 			root.add(box, i,0);
 		}
 		return root;
+	}
+
+	public void updateRidesAfterScan(MetroCard m) {
+		controller.updateRidesAfterScan(m);
 	}
 }
