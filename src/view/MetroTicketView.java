@@ -2,6 +2,7 @@ package view;
 
 import domain.controller.MetroStationViewController;
 import domain.controller.MetroTicketViewController;
+import domain.model.MetroCard;
 import javafx.collections.FXCollections;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -56,4 +57,10 @@ public class MetroTicketView {
 	public void buyMetroCard(){
 		controller.buyMetroCard();
 	}
+
+	public void buyMetroCardTickets(MetroCard m, int extraRides) {
+		controller.buyMetroTickets(m, extraRides);
+	}
+
+
 }
