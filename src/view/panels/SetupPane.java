@@ -1,22 +1,24 @@
 package view.panels;
 
+import domain.controller.MetroStationViewController;
+import domain.model.MetroEventsEnum;
 import domain.model.MetroFacade;
+import domain.model.MetroGate;
+import domain.model.MetroStation;
 import domain.model.ticketpricedecorator.TicketPriceDiscountEnum;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sun.awt.windows.WPrinterJob;
-
+import view.MetroStationView;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SetupPane extends GridPane {
@@ -26,8 +28,12 @@ public class SetupPane extends GridPane {
     private TicketPriceDiscountEnum[] possibleDiscounts = TicketPriceDiscountEnum.class.getEnumConstants();
     private ArrayList<TicketPriceDiscountEnum> selectedDiscounts = new ArrayList<>();
     private ArrayList<String> activeDiscounts = new MetroFacade().getMetroTicketDiscountList();
+    private MetroFacade facade;
 
-    public SetupPane(){
+
+
+    public SetupPane(MetroFacade facade){
+        this.facade = facade;
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -46,6 +52,7 @@ public class SetupPane extends GridPane {
             this.add(error, 0,0,2,1);
             this.setOptions("Save");
         }
+        //Kies welke kortingen
         int i = 3;
         for(TicketPriceDiscountEnum discount: possibleDiscounts){
             CheckBox discountBox = new CheckBox();
@@ -71,6 +78,34 @@ public class SetupPane extends GridPane {
         saveDicounts.setText("Save discounts");
         saveDicounts.setOnAction(event -> this.saveDiscounts());
         this.add(saveDicounts, 0, i, 1, 1);
+
+        //Kies aantal gates
+        ChoiceBox<Integer> choiceBox = new ChoiceBox<>();
+        for (int num = 2; num <= 8; num++) {
+            choiceBox.getItems().add(num);
+        }
+        Button setGateAmountBut = new Button("Kies aantal gates");
+        setGateAmountBut.setOnAction(event -> chooseGateAmount(choiceBox));
+        this.add(choiceBox, 0, i+=1, 1, 1);
+        this.add(setGateAmountBut, 0, i+=1, 1, 1);
+
+    }
+
+    private void chooseGateAmount(ChoiceBox<Integer> amount) {
+        System.out.println(this.facade.getMetroGateAmount());
+        try{
+            int selectedValue = amount.getValue();
+            ArrayList<MetroGate> gates = new ArrayList<>();
+            for (int i = 0; i < selectedValue; i++) {
+                MetroGate metroGate = new MetroGate();
+                gates.add(metroGate);
+            }
+            this.facade.updateMetroGatesAmount(gates);
+            this.facade.openMetroStation();
+            System.out.println(this.facade.getMetroGateAmount());
+        }catch (NullPointerException e){
+            System.out.println("no value selected");
+        }
     }
 
     private void setOptions(String option){
