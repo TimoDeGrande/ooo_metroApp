@@ -1,6 +1,10 @@
 package view;
 
+import domain.controller.AdminController;
 import domain.controller.MetroCardOverviewPaneController;
+import domain.controller.MetroStationViewController;
+import domain.model.MetroCard;
+import domain.model.MetroEventsEnum;
 import domain.model.MetroFacade;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,8 +13,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import view.panels.MetroCardOverviewPane;
 
+import java.util.ArrayList;
+
 public class AdminView {
-	private Stage stage = new Stage();		
+	private Stage stage = new Stage();
+	private AdminController controller;
+	private AdminMainPane pane;
 		
 	public AdminView(MetroFacade facade){
 		stage.setTitle("ADMIN VIEW");
@@ -20,14 +28,21 @@ public class AdminView {
 		Group root = new Group();
 		Scene scene = new Scene(root, 690, 680);
 
-		BorderPane borderPane = new AdminMainPane(facade);
+		this.pane = new AdminMainPane(facade);
 
 
-		borderPane.prefHeightProperty().bind(scene.heightProperty());
-		borderPane.prefWidthProperty().bind(scene.widthProperty());
-		root.getChildren().add(borderPane);
+		this.pane.prefHeightProperty().bind(scene.heightProperty());
+		this.pane.prefWidthProperty().bind(scene.widthProperty());
+		root.getChildren().add(this.pane);
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		
+	}
+
+	public void setController(AdminController metroStationViewController) {
+		this.controller = metroStationViewController;
+	}
+	public void updateMetroCardList(ArrayList<MetroCard> cards){
+		this.pane.getOverviewPane().updateMetroCardList(cards);
 	}
 }

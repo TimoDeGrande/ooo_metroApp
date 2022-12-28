@@ -1,9 +1,6 @@
 package application;
 
-import domain.controller.ControlCenterPaneController;
-import domain.controller.MetroCardOverviewPaneController;
-import domain.controller.MetroStationViewController;
-import domain.controller.MetroTicketViewController;
+import domain.controller.*;
 import domain.model.MetroCard;
 import domain.model.MetroFacade;
 import domain.model.MetroGate;
@@ -34,6 +31,7 @@ public class MetroMain extends Application {
 
          MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroTicketView, facade);
          MetroStationViewController metroStationViewController = new MetroStationViewController(metroStationView, facade);
+        AdminController adminController = new AdminController(adminView, facade);
 
         MetroCard m = new MetroCard(1, 12, 2022, 3, 10);
         TicketPrice price = TicketPriceFactory.createTicketPrice(true, false, true, m);

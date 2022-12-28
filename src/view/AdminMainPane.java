@@ -17,11 +17,14 @@ import view.panels.MetroCardOverviewPane;
 import view.panels.SetupPane;
 
 public class AdminMainPane extends BorderPane {
+    private MetroCardOverviewPaneController metroCardOverviewPaneController;
+    private MetroCardOverviewPane overviewPane;
+
 	public AdminMainPane(MetroFacade facade){
 	    TabPane tabPane = new TabPane();
         //MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
-        MetroCardOverviewPane overviewPane = new MetroCardOverviewPane();
-        MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController(overviewPane, facade);
+        this.overviewPane = new MetroCardOverviewPane();
+        this.metroCardOverviewPaneController = new MetroCardOverviewPaneController(overviewPane, facade);
         Tab metroCardOverviewTab = new Tab("Metro cards overview",overviewPane);
 
         //maak een controlCenterPane aan
@@ -37,4 +40,11 @@ public class AdminMainPane extends BorderPane {
         tabPane.getTabs().add(setupTab);
         this.setCenter(tabPane);
 	}
+
+    public MetroCardOverviewPaneController getMetroCardOverviewPaneController(){
+        return this.metroCardOverviewPaneController;
+    }
+    public MetroCardOverviewPane getOverviewPane(){
+        return this.overviewPane;
+    }
 }
