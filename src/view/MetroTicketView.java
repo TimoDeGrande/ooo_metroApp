@@ -98,11 +98,15 @@ public class MetroTicketView {
 	}
 
 	public void displayPrice(String rides, boolean young, boolean stud, boolean old, int cardId){
+		if(this.root.lookup("#pricebox") != null){
+			this.root.getChildren().remove(this.root.lookup("#pricebox"));
+		}
 		int ridesInt = 0;
 		if(!rides.isEmpty()){
 			ridesInt = Integer.parseInt(rides);
 		}
 		GridPane price = new GridPane();
+		price.setId("pricebox");
 		Text totalprice = new Text("Total price: ");
 		TicketPrice ticketPrice = TicketPriceFactory.createTicketPrice(young, old, stud, this.controller.getMetroCard(cardId));
 

@@ -35,12 +35,17 @@ public class ControlCenterPane extends GridPane {
         Button button = new Button();
         button.setText("Open metrostation");
         button.setOnAction(event -> openMetrostation());
-        this.getChildren().add(button);
+
+        this.add(button, 0,0);
         this.initOptions();
     }
 
     public void initOptions(){
+        if(this.lookup("#optionsbox") != null){
+            this.getChildren().remove(this.lookup("#optionsbox"));
+        }
         VBox options = new VBox();
+        options.setId("optionsbox");
         options.setPadding(new Insets(5));
         GridPane ticketstats = new GridPane();
         try{
@@ -58,16 +63,20 @@ public class ControlCenterPane extends GridPane {
         Text euro = new Text("Total € amount of sold tickets: ");
         Label euroamount = new Label(String.valueOf(this.moneySoldTickets));
 
-        ticketstats.add(sold, 0, 1, 1,1);
-        ticketstats.add(soldtickets, 1, 0, 1,1);
-        ticketstats.add(euro, 0,2, 1,1);
-        ticketstats.add(euroamount, 1, 2, 1,1);
+        ticketstats.add(sold, 0, 0);
+        ticketstats.add(soldtickets, 1, 0);
+        ticketstats.add(euro, 0,1);
+        ticketstats.add(euroamount, 1, 1);
         options.getChildren().add(ticketstats);
-        this.add(options, 0,5,1,1);
+        this.add(options, 0,1);
 
+        //gates
+        if(this.lookup("#gatesinfobox") != null){
+            this.getChildren().remove(this.lookup("#gatesinfobox"));
+        }
+        VBox gatesinfo = new VBox();
+        gatesinfo.setId("gatesinfobox");
 
-
-        //als je ticket koopt word er een update gedaan + moneys/file updaten!
 
     }
 
