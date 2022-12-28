@@ -3,6 +3,7 @@ package view;
 import domain.controller.MetroStationViewController;
 import domain.controller.MetroTicketViewController;
 import domain.model.MetroCard;
+import domain.model.MetroEventsEnum;
 import domain.model.db.MetroCardDatabase;
 import domain.model.ticketpricedecorator.TicketPrice;
 import domain.model.ticketpricedecorator.TicketPriceFactory;
@@ -132,8 +133,7 @@ public class MetroTicketView {
 	}
 
 	public void cancel(){
-		int size = this.root.getChildren().size();
-		this.root.getChildren().remove(size -2, size);
+		controller.update(MetroEventsEnum.BUY_METROCARD_TICKETS);
 	}
 
 	public void buyMetroCardTickets(MetroCard m, int extraRides) {
