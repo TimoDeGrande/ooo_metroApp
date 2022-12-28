@@ -17,6 +17,8 @@ import javafx.scene.text.Text;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.Properties;
 
 public class ControlCenterPane extends GridPane {
@@ -34,6 +36,7 @@ public class ControlCenterPane extends GridPane {
         button.setText("Open metrostation");
         button.setOnAction(event -> openMetrostation());
         this.getChildren().add(button);
+        this.initOptions();
     }
 
     public void initOptions(){
@@ -45,8 +48,8 @@ public class ControlCenterPane extends GridPane {
             InputStream inputStream = new FileInputStream(propertiesPath);
             properties.load(inputStream);
             this.soldtickets =  Integer.parseInt(properties.getProperty("soldtickets"));
-            this.moneySoldTickets =  Integer.parseInt(properties.getProperty("moneysoldtickets"));
-        } catch (IOException e) {
+            this.moneySoldTickets = DecimalFormat.getNumberInstance().parse(properties.getProperty("moneysoldtickets")).doubleValue();
+        } catch (IOException | ParseException e) {
             Text error = new Text();
             error.setText("Problemen bij het vinden van de vorige statistics file, stats zijn gereset");
         }
@@ -55,7 +58,15 @@ public class ControlCenterPane extends GridPane {
         Text euro = new Text("Total € amount of sold tickets: ");
         Label euroamount = new Label(String.valueOf(this.moneySoldTickets));
 
-        //toevoegen aan options
+        ticketstats.add(sold, 0, 1, 1,1);
+        ticketstats.add(soldtickets, 1, 0, 1,1);
+        ticketstats.add(euro, 0,2, 1,1);
+        ticketstats.add(euroamount, 1, 2, 1,1);
+        options.getChildren().add(ticketstats);
+        this.add(options, 0,5,1,1);
+
+
+
         //als je ticket koopt word er een update gedaan + moneys/file updaten!
 
     }

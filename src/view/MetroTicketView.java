@@ -6,6 +6,7 @@ import domain.model.MetroCard;
 import domain.model.MetroEventsEnum;
 import domain.model.db.MetroCardDatabase;
 import domain.model.ticketpricedecorator.TicketPrice;
+import domain.model.ticketpricedecorator.TicketPriceDiscountEnum;
 import domain.model.ticketpricedecorator.TicketPriceFactory;
 import javafx.collections.FXCollections;
 import javafx.scene.Group;
@@ -20,13 +21,12 @@ import javafx.stage.StageStyle;
 import javafx.util.converter.NumberStringConverter;
 import sun.security.util.PendingException;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class MetroTicketView {
 	private Stage stage = new Stage();
@@ -34,6 +34,8 @@ public class MetroTicketView {
 	private ChoiceBox ids = new ChoiceBox();
 	private MetroTicketViewController controller;
 	private final static String propertiesPath = "src/bestanden/application.properties";
+	private static final String statsPath = "src/bestanden/stats.properties";
+
 
 	public MetroTicketView(){
 		stage.setTitle("METROTICKET VIEW");
@@ -116,7 +118,8 @@ public class MetroTicketView {
 
 		Button confirm = new Button("confirm");
 		int finalRidesInt = ridesInt;
-		confirm.setOnAction(event -> buyMetroCardTickets(this.controller.getMetroCard(cardId), finalRidesInt));
+		int finalRidesInt1 = ridesInt;
+		confirm.setOnAction(event -> buyMetroCardTickets(this.controller.getMetroCard(cardId), finalRidesInt, ticketPrice.getPrice()* finalRidesInt1));
 		Button cancel = new Button("cancel");
 		cancel.setOnAction(event -> this.cancel());
 		price.add(confirm,0,2);
@@ -130,13 +133,39 @@ public class MetroTicketView {
 
 	public void buyMetroCard(){
 		controller.buyMetroCard();
+
 	}
 
 	public void cancel(){
 		controller.update(MetroEventsEnum.BUY_METROCARD_TICKETS);
 	}
 
-	public void buyMetroCardTickets(MetroCard m, int extraRides) {
+	public void buyMetroCardTickets(MetroCard m, int extraRides, double price) {
+		try {
+			Properties properties = new Properties();
+			FileInputStream inputStream = new FileInputStream(statsPath);
+			properties.load(inputStream);
+
+			int soldtickets = Integer.parseInt(properties.getProperty("soldtickets"));
+			double moneysoldtickets = DecimalFormat.getNumberInstance().parse(properties.getProperty("moneysoldtickets")).doubleValue();
+
+
+
+			int solticketsCalc = soldtickets + extraRides;
+			double moneysoldticketsCalc = moneysoldtickets + price;
+
+			DecimalFormat decimalFormat = new DecimalFormat("#.00");
+			String roundedNumber = decimalFormat.format(moneysoldticketsCalc);
+
+			properties.setProperty("soldtickets", String.valueOf(solticketsCalc));
+			properties.setProperty("moneysoldtickets", String.valueOf(roundedNumber));
+
+			FileOutputStream outputStream = new FileOutputStream(statsPath);
+			properties.store(outputStream, "");
+		}
+		catch (IOException | ParseException exc) {
+			exc.printStackTrace();
+		}
 		controller.buyMetroTickets(m, extraRides);
 		this.cancel();
 	}
