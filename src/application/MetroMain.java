@@ -35,7 +35,7 @@ public class MetroMain extends Application {
 
          MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
          ControlCenterPane controlCenterPane = new ControlCenterPane();
-        SetupPane setupPane = new SetupPane();
+         SetupPane setupPane = new SetupPane(facade);
          AdminView adminView = new AdminView(facade, metroCardOverviewPane, controlCenterPane, setupPane);
 
 
