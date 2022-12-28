@@ -8,7 +8,9 @@ public class MetroCard {
     private int month, year;
     private int availableRides, totalUsedRides;
 
-    private static AtomicInteger lastGeneratedId = new AtomicInteger(0);
+    private static AtomicInteger lastGeneratedId = new AtomicInteger(5);
+
+
 
 
     public MetroCard(int cardID, int month, int year, int availableRides, int totalUsedRides) {

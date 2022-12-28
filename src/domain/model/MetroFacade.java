@@ -41,7 +41,8 @@ public class MetroFacade implements Subject {
         LocalDate date = LocalDate.now();
         int month = date.getMonthValue();
         int year = date.getYear();
-        this.metroCardDatabase.add(new MetroCard(month, year, 0,0));
+        int id = metroCardDatabase.getMetroCardIdList().size() + 1;
+        this.metroCardDatabase.add(new MetroCard(id, month, year, 0,0));
         this.updateObservers(MetroEventsEnum.BUY_METROCARD);
 
     }
