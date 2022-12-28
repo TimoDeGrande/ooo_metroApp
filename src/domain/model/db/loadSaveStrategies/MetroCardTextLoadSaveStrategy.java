@@ -28,7 +28,7 @@ public class MetroCardTextLoadSaveStrategy extends TextLoadSaveTemplate implemen
     }
 
     @Override
-    public void save(String filename, Map<Integer, MetroCard> cards) {
+    public void save(Map<Integer, MetroCard> cards) {
         super.save(new File(filename), cards);
 
     }

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class MetroCardExcelLoadSaveStrategy extends ExcelLoadSaveTemplate implements LoadSaveStrategy {
     @Override
-    public void save(String filename, Map<Integer, MetroCard> cards) {
+    public void save(Map<Integer, MetroCard> cards) {
         super.save(new File(filename), cards);
     }
 
