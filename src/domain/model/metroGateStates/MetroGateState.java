@@ -5,7 +5,7 @@ import domain.model.MetroGate;
 
 public interface MetroGateState {
     default void activate(MetroGate gate) {
-        gate.setState(new Open());
+        gate.setState(new Closed());
     }
 
     default void deactivate(MetroGate gate) {
@@ -27,4 +27,5 @@ public interface MetroGateState {
     default void createAlert(MetroGate gate) {
         throw new IllegalArgumentException("");
     }
+    String toString();
 }

@@ -124,7 +124,6 @@ public class SetupPane extends GridPane {
     }
 
     private void saveDiscounts(){
-        //todo refresh ticket view page
         if(this.selectedDiscounts != null){
             try {
                 Properties properties = new Properties();
