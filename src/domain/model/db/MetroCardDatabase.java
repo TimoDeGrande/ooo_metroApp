@@ -39,4 +39,7 @@ public class MetroCardDatabase {
         this.loadSaveStrategy = loadSaveStrategy;
     }
 
+    public MetroCard get(int metroCardId) {
+        return this.metrocards.get(metroCardId);
+    }
 }

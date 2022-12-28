@@ -6,11 +6,10 @@ import domain.controller.MetroStationViewController;
 import domain.controller.MetroTicketViewController;
 import domain.model.MetroCard;
 import domain.model.MetroFacade;
+import domain.model.MetroGate;
+import domain.model.MetroStation;
 import domain.model.db.loadSaveStrategies.*;
-import domain.model.ticketpricedecorator.Age64PlusDiscount;
-import domain.model.ticketpricedecorator.BasisTicketPrice;
-import domain.model.ticketpricedecorator.ChristmasLeaveDiscount;
-import domain.model.ticketpricedecorator.TicketPrice;
+import domain.model.ticketpricedecorator.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.AdminView;
@@ -18,6 +17,7 @@ import view.MetroStationView;
 import view.MetroTicketView;
 import view.panels.ControlCenterPane;
 import view.panels.MetroCardOverviewPane;
+import view.panels.SetupPane;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,20 +28,42 @@ import java.util.TreeMap;
 public class MetroMain extends Application {
     @Override
     public void start(Stage primaryStage) {
-//        MetroFacade facade = new MetroFacade();
-//        AdminView adminView = new AdminView(facade);
-//
-//        MetroTicketView metroTicketView = new MetroTicketView();
-//        MetroStationView metroStationView = new MetroStationView();
-//        MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
-//
-//        MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroTicketView, facade);
-//        MetroStationViewController metroStationViewController = new MetroStationViewController(metroStationView, facade);
-//        MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController(metroCardOverviewPane, facade);
+        MetroFacade facade = new MetroFacade();
 
-        TicketPrice price = new Age64PlusDiscount(new ChristmasLeaveDiscount(new BasisTicketPrice()));
+         MetroTicketView metroTicketView = new MetroTicketView();
+         MetroStationView metroStationView = new MetroStationView();
+
+         MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
+         ControlCenterPane controlCenterPane = new ControlCenterPane();
+         SetupPane setupPane = new SetupPane(facade);
+         AdminView adminView = new AdminView(facade, metroCardOverviewPane, controlCenterPane, setupPane);
+
+
+         MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroTicketView, facade);
+         MetroStationViewController metroStationViewController = new MetroStationViewController(metroStationView, facade);
+         MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController(metroCardOverviewPane, facade);
+         ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController(controlCenterPane, facade);
+
+        MetroCard m = new MetroCard(1, 12, 2022, 3, 10);
+        TicketPrice price = TicketPriceFactory.createTicketPrice(true, false, true, m);
         System.out.println(price.getPrice());
         System.out.println(price.getPriceText());
+
+        ArrayList<MetroGate> gates = new ArrayList<>();
+        MetroGate metroGate1 = new MetroGate();
+        MetroGate metroGate2 = new MetroGate();
+        MetroGate metroGate3 = new MetroGate();
+        gates.add(metroGate1);
+        gates.add(metroGate2);
+        gates.add(metroGate3);
+        facade.updateMetroGatesAmount(gates);
+
+
+//        MetroGate m = new MetroGate();
+//        System.out.println(m.getState());
+//        m.getState().activate(m);
+//        System.out.println(m.getState());
+
 
     }
 
