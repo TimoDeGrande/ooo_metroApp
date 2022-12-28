@@ -14,10 +14,12 @@ public class ControlCenterPaneController implements Observer {
         this.view = view;
         this.facade = facade;
         this.view.setController(this);
+
+        this.facade.addObserver(MetroEventsEnum.BUY_METROCARD_TICKETS, this);
     }
     @Override
     public void update(MetroEventsEnum event) {
-
+        this.view.initOptions();
     }
 
     public void openMetroStation() {
