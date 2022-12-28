@@ -12,6 +12,7 @@ import domain.model.ticketpricedecorator.TicketPriceFactory;
 import view.MetroStationView;
 import view.panels.MetroCardOverviewPane;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,7 +38,10 @@ public class MetroFacade implements Subject {
 
     public void buyMetroCard() {
         //todo add metrocard to database q: welke parameters?
-//        this.metroCardDatabase.add(new MetroCard(????));
+        LocalDate date = LocalDate.now();
+        int month = date.getMonthValue();
+        int year = date.getYear();
+        this.metroCardDatabase.add(new MetroCard(month, year, 0,0));
 
     }
 

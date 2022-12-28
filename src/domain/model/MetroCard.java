@@ -1,14 +1,27 @@
 package domain.model;
 
 import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MetroCard {
     private int cardID;
     private int month, year;
     private int availableRides, totalUsedRides;
 
+    private static AtomicInteger lastGeneratedId = new AtomicInteger(0);
+
+
     public MetroCard(int cardID, int month, int year, int availableRides, int totalUsedRides) {
         setCardID(cardID);
+        setMonth(month);
+        setYear(year);
+        setAvailableRides(availableRides);
+        setTotalUsedRides(totalUsedRides);
+    }
+
+    public MetroCard(int month, int year, int availableRides, int totalUsedRides) {
+        int id = getNextUniqueID();
+        setCardID(id);
         setMonth(month);
         setYear(year);
         setAvailableRides(availableRides);
@@ -71,6 +84,10 @@ public class MetroCard {
 
     public int getTotalUsedRides() {
         return totalUsedRides;
+    }
+
+    public static int getNextUniqueID() {
+        return Integer.parseInt(String.valueOf(lastGeneratedId.incrementAndGet()));
     }
 
     public boolean scan() {

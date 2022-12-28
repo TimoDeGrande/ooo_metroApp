@@ -28,4 +28,8 @@ public class MetroTicketViewController implements Observer {
     public void setSubject(Subject s) {
         this.facade = (MetroFacade) s;
     }
+
+    public void buyMetroCard() {
+        this.facade.buyMetroCard();
+    }
 }
