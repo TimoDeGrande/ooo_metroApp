@@ -26,6 +26,7 @@ public class MetroStationViewController implements Observer {
         this.view.updateIdCheckbox(ids);
         this.view.updateGates(this.facade.getMetroGateAmount()); //correct line
         //this.view.updateGates(4); //test line
+
     }
 
     @Override

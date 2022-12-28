@@ -21,8 +21,8 @@ public class MetroStationView {
 	private ChoiceBox ids = new ChoiceBox();
 	private GridPane root = new GridPane();
 	private int gates = 0;
-	
-	public MetroStationView(){			
+
+	public MetroStationView(){
 		stage.setTitle("METRO STATION VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);
