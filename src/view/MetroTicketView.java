@@ -43,6 +43,7 @@ public class MetroTicketView {
 		choiceBox.setItems(FXCollections.observableArrayList(metroCardIds));
 		newRoot.add(choiceBox,0,1);
 		Scene scene = new Scene(newRoot, 650, 350);
+		this.root = newRoot;
 		this.stage.setScene(scene);
 		stage.sizeToScene();
 		stage.show();
