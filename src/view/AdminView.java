@@ -7,12 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import view.panels.ControlCenterPane;
 import view.panels.MetroCardOverviewPane;
+import view.panels.SetupPane;
 
 public class AdminView {
 	private Stage stage = new Stage();		
 		
-	public AdminView(MetroFacade facade){
+	public AdminView(MetroFacade facade, MetroCardOverviewPane metroCardOverviewPane, ControlCenterPane controlCenterPane, SetupPane setupPane){
 		stage.setTitle("ADMIN VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(660);
@@ -20,7 +22,7 @@ public class AdminView {
 		Group root = new Group();
 		Scene scene = new Scene(root, 690, 680);
 
-		BorderPane borderPane = new AdminMainPane(facade);
+		BorderPane borderPane = new AdminMainPane(facade, metroCardOverviewPane, controlCenterPane, setupPane);
 
 
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
