@@ -87,25 +87,24 @@ public class MetroTicketView {
 		ageselect.getChildren().addAll(young,mid,old);
 
 		Button addExtraRides = new Button("Add extra rides to metro card");
-		String contents = inputField.getText();
-		if(contents.isEmpty()){
-			contents = "0";
-		}
-		String finalContents = contents;
-		addExtraRides.setOnAction(event -> this.displayPrice(Integer.parseInt(finalContents),young.isSelected(),stud.isSelected(),old.isSelected(), cardId));
+		addExtraRides.setOnAction(event -> this.displayPrice(inputField.getText(),young.isSelected(),stud.isSelected(),old.isSelected(), cardId));
 
 		buy.add(ageselect, 0, 3);
 		buy.add(addExtraRides, 0, 4);
 		this.root.add(buy,0,2);
 	}
 
-	public void displayPrice(int rides, boolean young, boolean stud, boolean old, int cardId){
+	public void displayPrice(String rides, boolean young, boolean stud, boolean old, int cardId){
+		int ridesInt = 0;
+		if(!rides.isEmpty()){
+			ridesInt = Integer.parseInt(rides);
+		}
 		GridPane price = new GridPane();
 		Text totalprice = new Text("Total price: ");
 		TicketPrice ticketPrice = TicketPriceFactory.createTicketPrice(young, old, stud, this.controller.getMetroCard(cardId));
 
 		DecimalFormat decimalFormat = new DecimalFormat("#.00");
-		String roundedNumber = decimalFormat.format(ticketPrice.getPrice()*rides);
+		String roundedNumber = decimalFormat.format(ticketPrice.getPrice()*ridesInt);
 		Label label = new Label(String.valueOf(roundedNumber) + " €");
 
 		Text explanation = new Text(ticketPrice.getPriceText());
@@ -115,8 +114,12 @@ public class MetroTicketView {
 		price.add(explanation, 0, 1);
 
 		Button confirm = new Button("confirm");
+		int finalRidesInt = ridesInt;
+		confirm.setOnAction(event -> buyMetroCardTickets(this.controller.getMetroCard(cardId), finalRidesInt));
 		Button cancel = new Button("cancel");
-
+		cancel.setOnAction(event -> this.cancel());
+		price.add(confirm,0,2);
+		price.add(cancel,1,2);
 		this.root.add(price,0,3);
 	}
 
@@ -128,8 +131,14 @@ public class MetroTicketView {
 		controller.buyMetroCard();
 	}
 
+	public void cancel(){
+		int size = this.root.getChildren().size();
+		this.root.getChildren().remove(size -2, size);
+	}
+
 	public void buyMetroCardTickets(MetroCard m, int extraRides) {
 		controller.buyMetroTickets(m, extraRides);
+		this.cancel();
 	}
 
 
