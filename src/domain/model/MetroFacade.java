@@ -86,9 +86,20 @@ public class MetroFacade implements Subject {
         return this.station.getMetroGateAmount();
     }
 
+    public HashMap<Integer, MetroGate> getMetroGates(){
+        return this.station.getGates();
+    }
+
     public void updateMetroGatesAmount(ArrayList<MetroGate> gates){
         this.station.updateMetroGatesAmount(gates);
     }
 
 
+    public void updateRidesAfterScan(MetroCard m) {
+        int newRidesAmount = m.getAvailableRides() - 1;
+        m.setAvailableRides(newRidesAmount);
+        this.metroCardDatabase.save();
+        this.updateObservers(MetroEventsEnum.BUY_METROCARD);
+
+    }
 }
