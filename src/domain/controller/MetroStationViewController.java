@@ -34,4 +34,8 @@ public class MetroStationViewController implements Observer {
     public void setSubject(Subject subject) {
         this.facade = (MetroFacade) subject;
     }
+
+    public void updateRidesAfterScan(MetroCard m) {
+        this.facade.updateRidesAfterScan(m);
+    }
 }

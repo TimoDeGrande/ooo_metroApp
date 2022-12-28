@@ -94,4 +94,11 @@ public class MetroFacade implements Subject {
     }
 
 
+    public void updateRidesAfterScan(MetroCard m) {
+        int newRidesAmount = m.getAvailableRides() - 1;
+        m.setAvailableRides(newRidesAmount);
+        this.metroCardDatabase.save();
+        this.updateObservers(MetroEventsEnum.BUY_METROCARD);
+
+    }
 }

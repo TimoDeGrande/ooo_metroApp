@@ -2,6 +2,7 @@ package view;
 
 import domain.controller.MetroStationViewController;
 import domain.model.MetroGate;
+import domain.model.MetroCard;
 import javafx.collections.FXCollections;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -90,5 +91,9 @@ public class MetroStationView {
 	public void walkThroughGate(int gateId){
 		this.gates.get(gateId).walkThroughGate();
 		System.out.println(this.gates.get(gateId).getState());
+	}
+
+	public void updateRidesAfterScan(MetroCard m) {
+		controller.updateRidesAfterScan(m);
 	}
 }
