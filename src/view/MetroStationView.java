@@ -1,6 +1,7 @@
 package view;
 
 import domain.controller.MetroStationViewController;
+import domain.model.MetroEventsEnum;
 import domain.model.MetroGate;
 import domain.model.MetroCard;
 import javafx.collections.FXCollections;
@@ -24,7 +25,6 @@ public class MetroStationView {
 	private ChoiceBox ids = new ChoiceBox();
 	private GridPane root = new GridPane();
 	private int gatesAmount;
-	private HashMap<Integer, MetroGate> gates;
 
 	public MetroStationView(){
 		stage.setTitle("METRO STATION VIEW");
@@ -52,9 +52,6 @@ public class MetroStationView {
 		this.gatesAmount = gates;
 		this.updateView();
 	}
-	public void updateGatesList(HashMap<Integer, MetroGate> gates){
-		this.gates = gates;
-	}
 
 	public void updateView(){
 		GridPane newRoot = new GridPane();
@@ -68,12 +65,23 @@ public class MetroStationView {
 			Text error = new Text();
 			int finalI = i + 1;
 			scan.setOnAction(event -> {
-				error.setText("pressed walk through gate");
-				this.scanCard(finalI, (String) choiceBox.getValue());
+				if(choiceBox.getValue() != null){
+					error.setText("scanned gate");
+					this.scanCard(finalI, (String) choiceBox.getValue());
+				}
+				else{
+					error.setText("please choose a card id");
+				}
 			});
 			walkgate.setOnAction(event -> {
-				error.setText("pressed walk through gate");
-				this.walkThroughGate(finalI);
+				if(choiceBox.getValue() != null){
+					error.setText("pressed walk through gate");
+					this.walkThroughGate(finalI);
+				}
+				else{
+					error.setText("please choose a card id");
+				}
+
 			});
 			box.getChildren().addAll(text, choiceBox, scan, walkgate, error);
 			newRoot.add(box, i,0);
@@ -85,15 +93,16 @@ public class MetroStationView {
 	}
 
 	public void scanCard(int gateId,String cardId){
-		this.gates.get(gateId).scanMetroGate(this.controller.getMetroCard(Integer.parseInt(cardId)));
-		System.out.println(this.gates.get(gateId).getState());
+		controller.getGates().get(gateId).scanMetroGate(this.controller.getMetroCard(Integer.parseInt(cardId)));
+		controller.getGates().get(gateId).scan();
+		controller.update(MetroEventsEnum.BUY_METROCARD);
 	}
 	public void walkThroughGate(int gateId){
-		this.gates.get(gateId).walkThroughGate();
-		System.out.println(this.gates.get(gateId).getState());
+		controller.getGates().get(gateId).walkThroughGate();
 	}
 
 	public void updateRidesAfterScan(MetroCard m) {
+		//todo fiks dat de rides wel degelijk upgedate worden op overview, en worden opgeslagen in de txt/xls file
 		controller.updateRidesAfterScan(m);
 	}
 }

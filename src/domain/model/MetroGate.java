@@ -6,6 +6,7 @@ import domain.model.metroGateStates.MetroGateState;
 public class MetroGate {
     private int id;
     private MetroGateState currentState;
+    private int scans = 0;
 
     public MetroGate() {
         this.currentState = new Inactive();
@@ -32,5 +33,11 @@ public class MetroGate {
 
     public MetroGateState getState() {
         return currentState;
+    }
+    public void scan(){
+        this.scans++;
+    }
+    public int getScans(){
+        return scans;
     }
 }

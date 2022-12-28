@@ -19,4 +19,9 @@ public class Open implements MetroGateState {
     public void createWarning(MetroGate gate) {
         System.out.println("je hebt twee keer na elkaar gescand eikel");
     }
+
+    @Override
+    public String toString(){
+        return "Open";
+    }
 }

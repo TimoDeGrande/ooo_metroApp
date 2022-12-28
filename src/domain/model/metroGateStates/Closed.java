@@ -22,4 +22,8 @@ public class Closed implements MetroGateState {
     public void walkThroughGate(MetroGate gate) {
         this.createAlert(gate);
     }
+    @Override
+    public String toString(){
+        return "Closed";
+    }
 }

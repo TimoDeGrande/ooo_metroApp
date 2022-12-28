@@ -2,6 +2,8 @@ package view.panels;
 
 
 import domain.controller.ControlCenterPaneController;
+import domain.model.MetroEventsEnum;
+import domain.model.MetroGate;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -11,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -19,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class ControlCenterPane extends GridPane {
@@ -35,12 +39,12 @@ public class ControlCenterPane extends GridPane {
         Button button = new Button();
         button.setText("Open metrostation");
         button.setOnAction(event -> openMetrostation());
-
         this.add(button, 0,0);
-        this.initOptions();
     }
 
     public void initOptions(){
+        HashMap<Integer, MetroGate> gates = this.controller.getGates();
+        System.out.println("t");
         if(this.lookup("#optionsbox") != null){
             this.getChildren().remove(this.lookup("#optionsbox"));
         }
@@ -74,14 +78,37 @@ public class ControlCenterPane extends GridPane {
         if(this.lookup("#gatesinfobox") != null){
             this.getChildren().remove(this.lookup("#gatesinfobox"));
         }
-        VBox gatesinfo = new VBox();
+        HBox gatesinfo = new HBox();
         gatesinfo.setId("gatesinfobox");
+        for (int key : gates.keySet()) {
+            MetroGate value = gates.get(key);
+            VBox box = new VBox();
+            Text text = new Text(String.format("Gate %s / %s", key, value.getState().toString()));
+            Button activate = new Button("Activate");
+            activate.setOnAction(event -> {
+                value.getState().activate(value);
+                this.updateView();
+                System.out.println(value.getState().toString());
+            });
+            Button deactivate = new Button("Deactivate");
+            deactivate.setOnAction(event -> {
+                value.getState().deactivate(value);
+                this.updateView();
+                System.out.println(value.getState().toString());
+            });
+            Text number = new Text("#scanned cards");
+            Label label = new Label(String.valueOf(value.getScans()));
+            box.getChildren().addAll(text,activate,deactivate,number,label);
+            gatesinfo.getChildren().add(box);
+        }
+        this.add(gatesinfo,0,2);
+    }
 
-
+    public void updateView(){
+        controller.update(MetroEventsEnum.UPDATE_GATE);
     }
 
     public void openMetrostation(){
-        System.out.println(controller);
         this.controller.openMetroStation();
     }
 

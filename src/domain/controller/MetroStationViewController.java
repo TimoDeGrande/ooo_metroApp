@@ -4,6 +4,7 @@ import domain.model.*;
 import view.MetroStationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MetroStationViewController implements Observer {
     private MetroFacade facade;
@@ -16,14 +17,17 @@ public class MetroStationViewController implements Observer {
 
         this.facade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
         this.facade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
+        this.facade.addObserver(MetroEventsEnum.UPDATE_GATE, this);
     }
     @Override
     public void update(MetroEventsEnum e) {
         ArrayList<Integer> ids = this.facade.getMetroCardIdList();
         this.view.updateIdCheckbox(ids);
         this.view.updateGatesAmount(this.facade.getMetroGateAmount()); //correct line
-        this.view.updateGatesList(this.facade.getMetroGates());
+    }
 
+    public HashMap<Integer, MetroGate> getGates(){
+        return this.facade.getMetroGates();
     }
 
     public MetroCard getMetroCard(int id){
