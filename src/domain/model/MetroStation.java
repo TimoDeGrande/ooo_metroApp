@@ -16,6 +16,15 @@ public class MetroStation {
         nextId++;
     }
 
+    public void updateMetroGatesAmount(ArrayList<MetroGate> gates){
+        this.gates.clear();
+        for(MetroGate gate: gates){
+            gate.setId(nextId);
+            this.gates.put(gate.getId(), gate);
+            nextId++;
+        }
+    }
+
     public int getMetroGateAmount(){
         return this.gates.size();
     }
