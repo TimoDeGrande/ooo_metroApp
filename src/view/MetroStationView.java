@@ -78,6 +78,16 @@ public class MetroStationView {
 				}
 
 			});
+			if(this.controller.getGates().get(finalI).getState().toString().equals("Inactive")){
+				choiceBox.setDisable(true);
+				walkgate.setDisable(true);
+				scan.setDisable(true);
+			}
+			else{
+				choiceBox.setDisable(false);
+				walkgate.setDisable(false);
+				scan.setDisable(false);
+			}
 			box.getChildren().addAll(text, choiceBox, scan, walkgate, error);
 			newRoot.add(box, i,0);
 		}
@@ -108,5 +118,8 @@ public class MetroStationView {
 
 	public void updateRidesAfterScan(int cardId) {
 		controller.updateRidesAfterScan(controller.getMetroCard(cardId));
+	}
+	public void close(){
+		this.stage.close();
 	}
 }

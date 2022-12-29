@@ -16,6 +16,9 @@ public interface Subject {
     default void updateObservers(MetroEventsEnum event) {
         this.observers.get(event).forEach(e -> e.update(event));
     }
+    default void close(MetroEventsEnum event) {
+        this.observers.get(event).forEach(e -> e.close(event));
+    }
 
     default Map<MetroEventsEnum, List<Observer>> getObservers() {
         return this.observers;

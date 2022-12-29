@@ -32,4 +32,7 @@ public class AdminView {
 		stage.sizeToScene();			
 		stage.show();		
 	}
+	public void close(){
+		this.stage.close();
+	}
 }

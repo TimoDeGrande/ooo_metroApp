@@ -173,6 +173,9 @@ public class MetroTicketView {
 		controller.buyMetroTickets(m, extraRides);
 		this.cancel();
 	}
+	public void close(){
+		this.stage.close();
+	}
 
 
 }

@@ -110,6 +110,8 @@ public class MetroFacade implements Subject {
         this.alerts.add(alert);
         this.updateObservers(MetroEventsEnum.NEW_ALERT);
     }
+
+
     public ArrayList<String> getAlerts(){
         return this.alerts;
     }
