@@ -95,16 +95,11 @@ public class SetupPane extends GridPane {
         System.out.println(this.facade.getMetroGateAmount());
         try{
             int selectedValue = amount.getValue();
-            ArrayList<MetroGate> gates = new ArrayList<>();
-            for (int i = 0; i < selectedValue; i++) {
-                MetroGate metroGate = new MetroGate();
-                gates.add(metroGate);
-            }
-            this.facade.updateMetroGatesAmount(gates);
-            this.facade.openMetroStation();
+            this.facade.updateMetroGatesAmount(selectedValue);
+            this.facade.updateGates();
             System.out.println(this.facade.getMetroGateAmount());
         }catch (NullPointerException e){
-            System.out.println("no value selected");
+            System.out.println("fdgdfg");
         }
     }
 

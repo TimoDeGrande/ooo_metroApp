@@ -49,14 +49,14 @@ public class MetroMain extends Application {
         System.out.println(price.getPrice());
         System.out.println(price.getPriceText());
 
-        ArrayList<MetroGate> gates = new ArrayList<>();
-        MetroGate metroGate1 = new MetroGate();
-        MetroGate metroGate2 = new MetroGate();
-        MetroGate metroGate3 = new MetroGate();
-        gates.add(metroGate1);
-        gates.add(metroGate2);
-        gates.add(metroGate3);
-        facade.updateMetroGatesAmount(gates);
+//        ArrayList<MetroGate> gates = new ArrayList<>();
+//        MetroGate metroGate1 = new MetroGate();
+//        MetroGate metroGate2 = new MetroGate();
+//        MetroGate metroGate3 = new MetroGate();
+//        gates.add(metroGate1);
+//        gates.add(metroGate2);
+//        gates.add(metroGate3);
+        facade.updateMetroGatesAmount(3);
 
 
 //        MetroGate m = new MetroGate();
