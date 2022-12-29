@@ -18,12 +18,23 @@ public class MetroStationViewController implements Observer {
         this.facade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
         this.facade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
         this.facade.addObserver(MetroEventsEnum.UPDATE_GATE, this);
+        this.facade.addObserver(MetroEventsEnum.CLOSE_METROSTATION, this);
     }
     @Override
     public void update(MetroEventsEnum e) {
         ArrayList<Integer> ids = this.facade.getMetroCardIdList();
+
         this.view.updateIdCheckbox(ids);
-        this.view.updateGatesAmount(this.facade.getMetroGateAmount()); //correct line
+        this.view.updateView(); //correct line
+    }
+
+    @Override
+    public void close(MetroEventsEnum e) {
+        this.view.close();
+    }
+
+    public void updateAlerts(String alert){
+        this.facade.updateAlerts(alert);
     }
 
     public HashMap<Integer, MetroGate> getGates(){

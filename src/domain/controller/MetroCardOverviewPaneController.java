@@ -16,11 +16,17 @@ public class MetroCardOverviewPaneController implements Observer {
 
         this.facade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
         this.facade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
+        this.facade.addObserver(MetroEventsEnum.SCAN_METROCARD, this);
+        this.facade.addObserver(MetroEventsEnum.CLOSE_METROSTATION, this);
     }
     @Override
     public void update(MetroEventsEnum e) {
         ArrayList<MetroCard> cards = this.facade.getMetroCardList();
         this.view.updateMetroCardList(cards);
+    }
+
+    @Override
+    public void close(MetroEventsEnum e) {
     }
 
     @Override

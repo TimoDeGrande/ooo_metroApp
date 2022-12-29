@@ -2,34 +2,33 @@ package view.panels;
 
 
 import domain.controller.ControlCenterPaneController;
-import domain.model.MetroEventsEnum;
 import domain.model.MetroGate;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.*;
 
-
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Properties;
+import java.util.*;
 
 public class ControlCenterPane extends GridPane {
     private ControlCenterPaneController controller;
     private static final String propertiesPath = "src/bestanden/stats.properties";
     private int soldtickets;
     private double moneySoldTickets;
+    private ArrayList<String> alertsList = new ArrayList<>();
 
     public ControlCenterPane(){
         this.setPadding(new Insets(5, 5, 5, 5));
@@ -39,12 +38,15 @@ public class ControlCenterPane extends GridPane {
         Button button = new Button();
         button.setText("Open metrostation");
         button.setOnAction(event -> openMetrostation());
+        Button close = new Button();
+        close.setText("Close metrostation");
+        close.setOnAction(event -> closeMetrostation());
         this.add(button, 0,0);
+        this.add(close, 1,0);
     }
 
     public void initOptions(){
         HashMap<Integer, MetroGate> gates = this.controller.getGates();
-        System.out.println("t");
         if(this.lookup("#optionsbox") != null){
             this.getChildren().remove(this.lookup("#optionsbox"));
         }
@@ -83,7 +85,21 @@ public class ControlCenterPane extends GridPane {
         for (int key : gates.keySet()) {
             MetroGate value = gates.get(key);
             VBox box = new VBox();
-            Text text = new Text(String.format("Gate %s / %s", key, value.getState().toString()));
+            box.setPadding(new Insets(7));
+
+            box.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(5) )));
+
+
+            if (value.getState().toString().equals("Inactive")) {
+                box.setStyle("-fx-background-color: orange;");
+            } else {
+                box.setStyle("-fx-background-color: white;");
+            }
+            String printState = value.getState().toString();
+            if (printState.equals("Closed")) {
+                printState = "Active";
+            }
+            Text text = new Text(String.format("Gate %s / %s", key, printState));
             Button activate = new Button("Activate");
             activate.setOnAction(event -> {
                 value.getState().activate(value);
@@ -102,18 +118,40 @@ public class ControlCenterPane extends GridPane {
             gatesinfo.getChildren().add(box);
         }
         this.add(gatesinfo,0,2);
+        this.initAlerts();
+    }
+
+public void updateAlerts(ArrayList<String> alerts){
+        this.alertsList = alerts;
+        this.initAlerts();
+    }
+
+    public void initAlerts(){
+        ScrollPane alerts = new ScrollPane();
+        ObservableList<String> items = FXCollections.observableArrayList(alertsList);
+        Collections.reverse(items);
+        ListView<String> listView = new ListView<>();
+        listView.setItems(items);
+        alerts.setContent(listView);
+        this.add(alerts,0,3);
     }
 
     public void updateView(){
-        controller.update(MetroEventsEnum.UPDATE_GATE);
+        controller.updateGate();
     }
 
     public void openMetrostation(){
         this.controller.openMetroStation();
     }
+    public void closeMetrostation(){
+        this.controller.closeMetroStation();
+    }
 
     public void setController(ControlCenterPaneController controlCenterPaneController) {
         System.out.println("setted controller: " + controlCenterPaneController);
         this.controller = controlCenterPaneController;
+    }
+    public void close(){
+        ((Stage)this.getScene().getWindow()).close();
     }
 }

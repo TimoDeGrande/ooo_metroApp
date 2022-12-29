@@ -1,39 +1,33 @@
 package view;
 
-import domain.controller.MetroStationViewController;
+
 import domain.controller.MetroTicketViewController;
-import domain.model.MetroCard;
-import domain.model.MetroEventsEnum;
-import domain.model.db.MetroCardDatabase;
 import domain.model.ticketpricedecorator.TicketPrice;
-import domain.model.ticketpricedecorator.TicketPriceDiscountEnum;
+
 import domain.model.ticketpricedecorator.TicketPriceFactory;
 import javafx.collections.FXCollections;
-import javafx.scene.Group;
+
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.converter.NumberStringConverter;
-import sun.security.util.PendingException;
+
 
 import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 public class MetroTicketView {
 	private Stage stage = new Stage();
 	private GridPane root = new GridPane();
-	private ChoiceBox ids = new ChoiceBox();
 	private MetroTicketViewController controller;
-	private final static String propertiesPath = "src/bestanden/application.properties";
 	private static final String statsPath = "src/bestanden/stats.properties";
 
 
@@ -42,9 +36,6 @@ public class MetroTicketView {
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);
 		stage.setY(5);
-		Button button = new Button("Buy card");
-		button.setOnAction(event -> this.buyMetroCard());
-		this.root.add(button, 0,0);
 		Scene scene = new Scene(this.root, 650, 350);
 		stage.setScene(scene);
 		stage.sizeToScene();
@@ -52,12 +43,14 @@ public class MetroTicketView {
 	}
 
 	public void updateIdCheckbox(ArrayList<Integer> metroCardIds) {
+		Button button = new Button("Buy card");
+		button.setOnAction(event -> this.buyMetroCard());
+		this.root.add(button, 0,0);
 		GridPane newRoot = new GridPane();
 		newRoot.add(this.root.getChildren().get(0), 0,0);
 		ChoiceBox choiceBox = new ChoiceBox();
 		choiceBox.setOnAction(event -> startBuyPhase(choiceBox.getSelectionModel().getSelectedIndex()));
 		choiceBox.setItems(FXCollections.observableArrayList(metroCardIds));
-		this.ids = choiceBox;
 		newRoot.add(choiceBox,0,1);
 		Scene scene = new Scene(newRoot, 650, 350);
 		this.root = newRoot;
@@ -123,7 +116,7 @@ public class MetroTicketView {
 		Button confirm = new Button("confirm");
 		int finalRidesInt = ridesInt;
 		int finalRidesInt1 = ridesInt;
-		confirm.setOnAction(event -> buyMetroCardTickets(this.controller.getMetroCard(cardId), finalRidesInt, ticketPrice.getPrice()* finalRidesInt1));
+		confirm.setOnAction(event -> buyMetroCardTickets(cardId, finalRidesInt, ticketPrice.getPrice()* finalRidesInt1));
 		Button cancel = new Button("cancel");
 		cancel.setOnAction(event -> this.cancel());
 		price.add(confirm,0,2);
@@ -141,10 +134,10 @@ public class MetroTicketView {
 	}
 
 	public void cancel(){
-		controller.update(MetroEventsEnum.BUY_METROCARD_TICKETS);
+		this.controller.cancel();
 	}
 
-	public void buyMetroCardTickets(MetroCard m, int extraRides, double price) {
+	public void buyMetroCardTickets(int cardId, int extraRides, double price) {
 		try {
 			Properties properties = new Properties();
 			FileInputStream inputStream = new FileInputStream(statsPath);
@@ -170,8 +163,11 @@ public class MetroTicketView {
 		catch (IOException | ParseException exc) {
 			exc.printStackTrace();
 		}
-		controller.buyMetroTickets(m, extraRides);
+		controller.buyMetroTickets(this.controller.getMetroCard(cardId), extraRides);
 		this.cancel();
+	}
+	public void close(){
+		this.stage.close();
 	}
 
 

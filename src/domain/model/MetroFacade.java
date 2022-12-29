@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class MetroFacade implements Subject {
     private MetroCardDatabase metroCardDatabase;
     private MetroStation station;
+    private ArrayList<String> alerts = new ArrayList<>();
 
     public MetroFacade() {
         for (MetroEventsEnum eventType : MetroEventsEnum.values()) {
@@ -42,7 +43,7 @@ public class MetroFacade implements Subject {
         int month = date.getMonthValue();
         int year = date.getYear();
         int id = metroCardDatabase.getMetroCardIdList().size() + 1;
-        this.metroCardDatabase.add(new MetroCard(id, month, year, 0,0));
+        this.metroCardDatabase.add(new MetroCard(id, month, year, 2,0));
         this.metroCardDatabase.save();
         this.updateObservers(MetroEventsEnum.BUY_METROCARD);
 
@@ -90,20 +91,29 @@ public class MetroFacade implements Subject {
         return this.station.getGates();
     }
 
-    public void updateMetroGatesAmount(ArrayList<MetroGate> gates){
+    public void updateMetroGatesAmount(int gates){
         this.station.updateMetroGatesAmount(gates);
     }
 
 
-    public void updateGates(){
-        this.updateObservers(MetroEventsEnum.BUY_METROCARD);
+    public void updateGates(int gates){
+        this.updateMetroGatesAmount(gates);
+        this.updateObservers(MetroEventsEnum.UPDATE_GATE);
     }
 
     public void updateRidesAfterScan(MetroCard m) {
-        int newRidesAmount = m.getAvailableRides() - 1;
+        int newRidesAmount = m.getAvailableRides();
         m.setAvailableRides(newRidesAmount);
         this.metroCardDatabase.save();
-        this.updateObservers(MetroEventsEnum.BUY_METROCARD);
+        this.updateObservers(MetroEventsEnum.SCAN_METROCARD);
+    }
+    public void updateAlerts(String alert){
+        this.alerts.add(alert);
+        this.updateObservers(MetroEventsEnum.NEW_ALERT);
+    }
 
+
+    public ArrayList<String> getAlerts(){
+        return this.alerts;
     }
 }
