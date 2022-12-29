@@ -16,16 +16,20 @@ public class MetroStation {
         nextId++;
     }
 
-    public void updateMetroGatesAmount(ArrayList<MetroGate> gates){
-        this.gates.clear();
-        for(MetroGate gate: gates){
-            gate.setId(nextId);
-            this.gates.put(gate.getId(), gate);
+    public void updateMetroGatesAmount(int gates){
+        this.nextId = 1;
+        HashMap<Integer, MetroGate> newGates = new HashMap<>();
+        for(int i = 0; i < gates; i++){
+            MetroGate metroGate = new MetroGate();
+            metroGate.setId(nextId);
+            newGates.put(metroGate.getId(), metroGate);
             nextId++;
         }
+        this.gates = newGates;
     }
 
     public int getMetroGateAmount(){
+        System.out.println("Metro gate amount get: " + this.gates.size());
         return this.gates.size();
     }
     public HashMap<Integer, MetroGate> getGates(){

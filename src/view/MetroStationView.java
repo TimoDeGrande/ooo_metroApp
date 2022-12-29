@@ -19,7 +19,6 @@ public class MetroStationView {
 	private Stage stage = new Stage();
 	private ChoiceBox ids = new ChoiceBox();
 	private GridPane root = new GridPane();
-	private int gatesAmount;
 
 	public MetroStationView(){
 		stage.setTitle("METRO STATION VIEW");
@@ -43,14 +42,9 @@ public class MetroStationView {
 		this.updateView();
 	}
 
-	public void updateGatesAmount(int gates) {
-		this.gatesAmount = gates;
-		this.updateView();
-	}
-
 	public void updateView(){
 		GridPane newRoot = new GridPane();
-		for(int i = 0; i < this.gatesAmount; i++){
+		for(int i = 0; i < this.controller.getGates().size(); i++){
 			ChoiceBox choiceBox = new ChoiceBox();
 			choiceBox.setItems(this.ids.getItems());
 			VBox box = new VBox();

@@ -1,22 +1,14 @@
 package view.panels;
 
-import domain.controller.MetroStationViewController;
-import domain.model.MetroEventsEnum;
-import domain.model.MetroFacade;
-import domain.model.MetroGate;
-import domain.model.MetroStation;
+import domain.controller.SetupPaneController;
 import domain.model.ticketpricedecorator.TicketPriceDiscountEnum;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import sun.awt.windows.WPrinterJob;
-import view.MetroStationView;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,16 +19,19 @@ public class SetupPane extends GridPane {
     private final static String propertiesPath = "src/bestanden/application.properties";
     private TicketPriceDiscountEnum[] possibleDiscounts = TicketPriceDiscountEnum.class.getEnumConstants();
     private ArrayList<TicketPriceDiscountEnum> selectedDiscounts = new ArrayList<>();
-    private ArrayList<String> activeDiscounts = new MetroFacade().getMetroTicketDiscountList();
-    private MetroFacade facade;
+    private ArrayList<String> activeDiscounts;
+    private SetupPaneController controller;
 
 
 
-    public SetupPane(MetroFacade facade){
-        this.facade = facade;
+    public SetupPane(){
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
+    }
+
+    public void initSetup(){
+        this.activeDiscounts = controller.getMetroDiscountList();
         try{
             Properties properties = new Properties();
             InputStream inputStream = new FileInputStream(propertiesPath);
@@ -88,24 +83,13 @@ public class SetupPane extends GridPane {
         setGateAmountBut.setOnAction(event -> chooseGateAmount(choiceBox));
         this.add(choiceBox, 0, i+=1, 1, 1);
         this.add(setGateAmountBut, 0, i+=1, 1, 1);
-
     }
 
+
     private void chooseGateAmount(ChoiceBox<Integer> amount) {
-        System.out.println(this.facade.getMetroGateAmount());
-        try{
-            int selectedValue = amount.getValue();
-            ArrayList<MetroGate> gates = new ArrayList<>();
-            for (int i = 0; i < selectedValue; i++) {
-                MetroGate metroGate = new MetroGate();
-                gates.add(metroGate);
-            }
-            this.facade.updateMetroGatesAmount(gates);
-            this.facade.openMetroStation();
-            System.out.println(this.facade.getMetroGateAmount());
-        }catch (NullPointerException e){
-            System.out.println("no value selected");
-        }
+        int selectedValue = amount.getValue();
+        this.controller.updateGates(selectedValue);
+
     }
 
     private void setOptions(String option){
@@ -163,7 +147,7 @@ public class SetupPane extends GridPane {
         }
     }
 
-    private void editDiscounts(){
-
+    public void setController(SetupPaneController controller){
+        this.controller = controller;
     }
 }

@@ -91,13 +91,14 @@ public class MetroFacade implements Subject {
         return this.station.getGates();
     }
 
-    public void updateMetroGatesAmount(ArrayList<MetroGate> gates){
+    public void updateMetroGatesAmount(int gates){
         this.station.updateMetroGatesAmount(gates);
     }
 
 
-    public void updateGates(){
-        this.updateObservers(MetroEventsEnum.BUY_METROCARD);
+    public void updateGates(int gates){
+        this.updateMetroGatesAmount(gates);
+        this.updateObservers(MetroEventsEnum.UPDATE_GATE);
     }
 
     public void updateRidesAfterScan(MetroCard m) {

@@ -1,9 +1,6 @@
 package application;
 
-import domain.controller.ControlCenterPaneController;
-import domain.controller.MetroCardOverviewPaneController;
-import domain.controller.MetroStationViewController;
-import domain.controller.MetroTicketViewController;
+import domain.controller.*;
 import domain.model.MetroCard;
 import domain.model.MetroFacade;
 import domain.model.MetroGate;
@@ -35,28 +32,29 @@ public class MetroMain extends Application {
 
          MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
          ControlCenterPane controlCenterPane = new ControlCenterPane();
-         SetupPane setupPane = new SetupPane(facade);
-         AdminView adminView = new AdminView(facade, metroCardOverviewPane, controlCenterPane, setupPane);
+         SetupPane setupPane = new SetupPane();
+         AdminView adminView = new AdminView(metroCardOverviewPane, controlCenterPane, setupPane);
 
 
          MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroTicketView, facade);
          MetroStationViewController metroStationViewController = new MetroStationViewController(metroStationView, facade);
          MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController(metroCardOverviewPane, facade);
          ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController(controlCenterPane, facade);
+        SetupPaneController setupPaneController = new SetupPaneController(setupPane, facade);
 
         MetroCard m = new MetroCard(1, 12, 2022, 3, 10);
         TicketPrice price = TicketPriceFactory.createTicketPrice(true, false, true, m);
         System.out.println(price.getPrice());
         System.out.println(price.getPriceText());
 
-        ArrayList<MetroGate> gates = new ArrayList<>();
-        MetroGate metroGate1 = new MetroGate();
-        MetroGate metroGate2 = new MetroGate();
-        MetroGate metroGate3 = new MetroGate();
-        gates.add(metroGate1);
-        gates.add(metroGate2);
-        gates.add(metroGate3);
-        facade.updateMetroGatesAmount(gates);
+//        ArrayList<MetroGate> gates = new ArrayList<>();
+//        MetroGate metroGate1 = new MetroGate();
+//        MetroGate metroGate2 = new MetroGate();
+//        MetroGate metroGate3 = new MetroGate();
+//        gates.add(metroGate1);
+//        gates.add(metroGate2);
+//        gates.add(metroGate3);
+        facade.updateMetroGatesAmount(3);
 
 
 //        MetroGate m = new MetroGate();
