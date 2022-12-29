@@ -60,7 +60,6 @@ public class MetroCardOverviewPane extends GridPane {
         this.cards.clear();
         this.cards.addAll(cards);
         table.setItems(observableCards);
-        System.out.println(this.cards);
         table.refresh();
     }
 

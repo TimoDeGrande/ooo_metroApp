@@ -104,13 +104,11 @@ public class ControlCenterPane extends GridPane {
             activate.setOnAction(event -> {
                 value.getState().activate(value);
                 this.updateView();
-                System.out.println(value.getState().toString());
             });
             Button deactivate = new Button("Deactivate");
             deactivate.setOnAction(event -> {
                 value.getState().deactivate(value);
                 this.updateView();
-                System.out.println(value.getState().toString());
             });
             Text number = new Text("#scanned cards");
             Label label = new Label(String.valueOf(value.getScans()));
@@ -148,7 +146,6 @@ public void updateAlerts(ArrayList<String> alerts){
     }
 
     public void setController(ControlCenterPaneController controlCenterPaneController) {
-        System.out.println("setted controller: " + controlCenterPaneController);
         this.controller = controlCenterPaneController;
     }
     public void close(){

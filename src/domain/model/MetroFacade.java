@@ -44,7 +44,6 @@ public class MetroFacade implements Subject {
     }
 
     public void buyMetroCard() {
-        //todo add metrocard to database q: welke parameters?
         LocalDate date = LocalDate.now();
         int month = date.getMonthValue();
         int year = date.getYear();

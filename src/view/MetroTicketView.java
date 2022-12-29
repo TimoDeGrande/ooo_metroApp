@@ -74,7 +74,6 @@ public class MetroTicketView {
 		RadioButton young = new RadioButton("younger than 26 years");
 		RadioButton mid = new RadioButton("between 26 and 64 years");
 		RadioButton old = new RadioButton("older than 64 years");
-
 		ToggleGroup toggleGroup = new ToggleGroup();
 		young.setToggleGroup(toggleGroup);
 		mid.setToggleGroup(toggleGroup);

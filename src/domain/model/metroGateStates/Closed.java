@@ -22,7 +22,6 @@ public class Closed implements MetroGateState {
 
     @Override
     public void createAlert(MetroGate gate) {
-        System.out.println("je hebt niet gescand");
         throw new Alert(String.format("%s Unauthorized access in gate %s", Instant.now().toString().substring(11,19), gate.getId()));
     }
 

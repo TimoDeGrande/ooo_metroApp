@@ -25,7 +25,7 @@ public class MetroStationViewController implements Observer {
         ArrayList<Integer> ids = this.facade.getMetroCardIdList();
 
         this.view.updateIdCheckbox(ids);
-        this.view.updateView(); //correct line
+        this.view.updateView();
     }
 
     @Override
