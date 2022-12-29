@@ -20,6 +20,7 @@ public class MetroFacade implements Subject {
     private MetroCardDatabase metroCardDatabase;
     private MetroStation station;
     private ArrayList<String> alerts = new ArrayList<>();
+    private static MetroFacade metroFacade;
 
     public MetroFacade() {
         for (MetroEventsEnum eventType : MetroEventsEnum.values()) {
@@ -28,6 +29,11 @@ public class MetroFacade implements Subject {
         this.metroCardDatabase = new MetroCardDatabase();
         this.station = new MetroStation();
 
+    }
+
+    public static MetroFacade getInstance() {
+        if(metroFacade == null) metroFacade = new MetroFacade();
+        return metroFacade;
     }
 
     public void openMetroStation() {
