@@ -71,7 +71,10 @@ public class SetupPane extends GridPane {
         }
         Button saveDicounts = new Button();
         saveDicounts.setText("Save discounts");
-        saveDicounts.setOnAction(event -> this.saveDiscounts());
+        saveDicounts.setOnAction(event -> {
+            this.controller.updateDiscounts();
+            this.saveDiscounts();
+        });
         this.add(saveDicounts, 0, i, 1, 1);
 
         //Kies aantal gates

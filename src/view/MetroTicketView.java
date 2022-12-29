@@ -70,6 +70,7 @@ public class MetroTicketView {
 		buy.add(inputField,0,1);
 		CheckBox stud = new CheckBox("Higher education student");
 		buy.add(stud,0,2);
+		stud.setDisable(!this.controller.getDiscounts().contains("STUDENTDISCOUNT"));
 		RadioButton young = new RadioButton("younger than 26 years");
 		RadioButton mid = new RadioButton("between 26 and 64 years");
 		RadioButton old = new RadioButton("older than 64 years");

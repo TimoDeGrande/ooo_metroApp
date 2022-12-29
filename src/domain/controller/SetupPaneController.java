@@ -30,6 +30,10 @@ public class SetupPaneController implements Observer {
         this.facade.updateGates(gates);
         this.facade.updateObservers(MetroEventsEnum.BUY_METROCARD);
     }
+    public void updateDiscounts(){
+        this.facade.updateObservers(MetroEventsEnum.BUY_METROCARD);
+    }
+
     public ArrayList<String> getMetroDiscountList(){
         return this.facade.getMetroTicketDiscountList();
     }
