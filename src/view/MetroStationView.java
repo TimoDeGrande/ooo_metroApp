@@ -102,7 +102,6 @@ public class MetroStationView {
 	}
 
 	public void updateRidesAfterScan(MetroCard m) {
-		//todo fiks dat de rides wel degelijk upgedate worden op overview, en worden opgeslagen in de txt/xls file
 		controller.updateRidesAfterScan(m);
 	}
 }

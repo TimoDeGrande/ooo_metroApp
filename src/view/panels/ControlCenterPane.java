@@ -6,15 +6,13 @@ import domain.model.MetroEventsEnum;
 import domain.model.MetroGate;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
@@ -83,7 +81,21 @@ public class ControlCenterPane extends GridPane {
         for (int key : gates.keySet()) {
             MetroGate value = gates.get(key);
             VBox box = new VBox();
-            Text text = new Text(String.format("Gate %s / %s", key, value.getState().toString()));
+            box.setPadding(new Insets(7));
+
+            box.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(5) )));
+
+
+            if (value.getState().toString().equals("Inactive")) {
+                box.setStyle("-fx-background-color: orange;");
+            } else {
+                box.setStyle("-fx-background-color: white;");
+            }
+            String printState = value.getState().toString();
+            if (printState.equals("Closed")) {
+                printState = "Active";
+            }
+            Text text = new Text(String.format("Gate %s / %s", key, printState));
             Button activate = new Button("Activate");
             activate.setOnAction(event -> {
                 value.getState().activate(value);
