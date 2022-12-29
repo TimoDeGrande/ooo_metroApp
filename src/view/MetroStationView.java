@@ -1,14 +1,10 @@
 package view;
 
 import domain.controller.MetroStationViewController;
-import domain.model.MetroEventsEnum;
-import domain.model.MetroGate;
-import domain.model.MetroCard;
+import domain.model.metroGateStates.Alert;
 import javafx.collections.FXCollections;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -17,7 +13,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MetroStationView {
 	private MetroStationViewController controller;
@@ -83,6 +78,16 @@ public class MetroStationView {
 				}
 
 			});
+			if(this.controller.getGates().get(finalI).getState().toString().equals("Inactive")){
+				choiceBox.setDisable(true);
+				walkgate.setDisable(true);
+				scan.setDisable(true);
+			}
+			else{
+				choiceBox.setDisable(false);
+				walkgate.setDisable(false);
+				scan.setDisable(false);
+			}
 			box.getChildren().addAll(text, choiceBox, scan, walkgate, error);
 			newRoot.add(box, i,0);
 		}
@@ -93,16 +98,28 @@ public class MetroStationView {
 	}
 
 	public void scanCard(int gateId,int cardId){
-		controller.getGates().get(gateId).scanMetroGate(this.controller.getMetroCard(cardId));
-		controller.getGates().get(gateId).scan();
-		this.updateRidesAfterScan(controller.getMetroCard(cardId));
+		try{
+			controller.getGates().get(gateId).scanMetroGate(this.controller.getMetroCard(cardId));
+			controller.getGates().get(gateId).scan();
+		}
+		catch (Alert alert){
+			this.controller.updateAlerts(alert.getMessage());
+		}
+		this.updateRidesAfterScan(cardId);
 	}
 	public void walkThroughGate(int gateId){
-		controller.getGates().get(gateId).walkThroughGate();
+		try{
+			controller.getGates().get(gateId).walkThroughGate();
+		}
+		catch (Alert alert){
+			this.controller.updateAlerts(alert.getMessage());
+		}
 	}
 
-	public void updateRidesAfterScan(MetroCard m) {
-		//todo fiks dat de rides wel degelijk upgedate worden op overview, en worden opgeslagen in de txt/xls file
-		controller.updateRidesAfterScan(m);
+	public void updateRidesAfterScan(int cardId) {
+		controller.updateRidesAfterScan(controller.getMetroCard(cardId));
+	}
+	public void close(){
+		this.stage.close();
 	}
 }

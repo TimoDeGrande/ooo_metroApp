@@ -1,5 +1,7 @@
 package domain.model;
 
+import domain.model.metroGateStates.Alert;
+
 import java.time.LocalDate;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -93,7 +95,9 @@ public class MetroCard {
     }
 
     public boolean scan() {
-        if (availableRides == 0) return false;
+        if (availableRides == 0) {
+            return false;
+        }
         this.totalUsedRides++;
         this.availableRides--;
         return true;

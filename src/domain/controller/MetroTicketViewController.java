@@ -16,6 +16,7 @@ public class MetroTicketViewController implements Observer {
 
         this.facade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
         this.facade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
+        this.facade.addObserver(MetroEventsEnum.CLOSE_METROSTATION, this);
     }
 
     public MetroCard getMetroCard(int id){
@@ -26,6 +27,11 @@ public class MetroTicketViewController implements Observer {
     public void update(MetroEventsEnum e) {
         ArrayList<Integer> metroCardIds = this.facade.getMetroCardIdList();
         this.view.updateIdCheckbox(metroCardIds);
+    }
+
+    @Override
+    public void close(MetroEventsEnum e) {
+        this.view.close();
     }
 
     @Override
