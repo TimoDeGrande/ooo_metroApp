@@ -17,17 +17,19 @@ public class MetroStation {
     }
 
     public void updateMetroGatesAmount(int gates){
-        this.gates.clear();
         this.nextId = 1;
+        HashMap<Integer, MetroGate> newGates = new HashMap<>();
         for(int i = 0; i < gates; i++){
             MetroGate metroGate = new MetroGate();
             metroGate.setId(nextId);
-            this.gates.put(metroGate.getId(), metroGate);
+            newGates.put(metroGate.getId(), metroGate);
             nextId++;
         }
+        this.gates = newGates;
     }
 
     public int getMetroGateAmount(){
+        System.out.println("Metro gate amount get: " + this.gates.size());
         return this.gates.size();
     }
     public HashMap<Integer, MetroGate> getGates(){

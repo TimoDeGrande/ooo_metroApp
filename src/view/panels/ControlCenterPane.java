@@ -2,19 +2,14 @@ package view.panels;
 
 
 import domain.controller.ControlCenterPaneController;
-import domain.model.MetroEventsEnum;
 import domain.model.MetroGate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 
-
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
@@ -52,7 +47,6 @@ public class ControlCenterPane extends GridPane {
 
     public void initOptions(){
         HashMap<Integer, MetroGate> gates = this.controller.getGates();
-        System.out.println("t");
         if(this.lookup("#optionsbox") != null){
             this.getChildren().remove(this.lookup("#optionsbox"));
         }
