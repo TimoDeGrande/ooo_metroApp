@@ -67,7 +67,7 @@ public class MetroStationView {
 			scan.setOnAction(event -> {
 				if(choiceBox.getValue() != null){
 					error.setText("scanned gate");
-					this.scanCard(finalI, (String) choiceBox.getValue());
+					this.scanCard(finalI,  Integer.parseInt((String) choiceBox.getValue()) -1);
 				}
 				else{
 					error.setText("please choose a card id");
@@ -92,10 +92,10 @@ public class MetroStationView {
 		stage.show();
 	}
 
-	public void scanCard(int gateId,String cardId){
-		controller.getGates().get(gateId).scanMetroGate(this.controller.getMetroCard(Integer.parseInt(cardId)));
+	public void scanCard(int gateId,int cardId){
+		controller.getGates().get(gateId).scanMetroGate(this.controller.getMetroCard(cardId));
 		controller.getGates().get(gateId).scan();
-		controller.update(MetroEventsEnum.BUY_METROCARD);
+		this.updateRidesAfterScan(controller.getMetroCard(cardId));
 	}
 	public void walkThroughGate(int gateId){
 		controller.getGates().get(gateId).walkThroughGate();

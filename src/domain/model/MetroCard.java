@@ -81,7 +81,7 @@ public class MetroCard {
     }
 
     public int getAvailableRides() {
-        return availableRides;
+        return this.availableRides;
     }
 
     public int getTotalUsedRides() {
