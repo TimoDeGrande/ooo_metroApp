@@ -18,10 +18,13 @@ public class ControlCenterPaneController implements Observer {
         this.facade.addObserver(MetroEventsEnum.BUY_METROCARD, this);
         this.facade.addObserver(MetroEventsEnum.OPEN_METROSTATION, this);
         this.facade.addObserver(MetroEventsEnum.UPDATE_GATE, this);
+        this.facade.addObserver(MetroEventsEnum.NEW_ALERT, this);
+        this.facade.addObserver(MetroEventsEnum.SCAN_METROCARD, this);
     }
     @Override
     public void update(MetroEventsEnum event) {
         this.view.initOptions();
+        this.view.updateAlerts(this.facade.getAlerts());
     }
 
     public HashMap<Integer, MetroGate> getGates(){

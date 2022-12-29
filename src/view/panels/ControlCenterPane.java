@@ -4,8 +4,12 @@ package view.panels;
 import domain.controller.ControlCenterPaneController;
 import domain.model.MetroEventsEnum;
 import domain.model.MetroGate;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 
 
@@ -20,14 +24,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Properties;
+import java.util.*;
 
 public class ControlCenterPane extends GridPane {
     private ControlCenterPaneController controller;
     private static final String propertiesPath = "src/bestanden/stats.properties";
     private int soldtickets;
     private double moneySoldTickets;
+    private ArrayList<String> alertsList = new ArrayList<>();
 
     public ControlCenterPane(){
         this.setPadding(new Insets(5, 5, 5, 5));
@@ -114,6 +118,22 @@ public class ControlCenterPane extends GridPane {
             gatesinfo.getChildren().add(box);
         }
         this.add(gatesinfo,0,2);
+        this.initAlerts();
+    }
+
+public void updateAlerts(ArrayList<String> alerts){
+        this.alertsList = alerts;
+        this.initAlerts();
+    }
+
+    public void initAlerts(){
+        ScrollPane alerts = new ScrollPane();
+        ObservableList<String> items = FXCollections.observableArrayList(alertsList);
+        Collections.reverse(items);
+        ListView<String> listView = new ListView<>();
+        listView.setItems(items);
+        alerts.setContent(listView);
+        this.add(alerts,0,3);
     }
 
     public void updateView(){

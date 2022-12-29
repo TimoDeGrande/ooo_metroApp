@@ -25,6 +25,9 @@ public class MetroStationViewController implements Observer {
         this.view.updateIdCheckbox(ids);
         this.view.updateGatesAmount(this.facade.getMetroGateAmount()); //correct line
     }
+    public void updateAlerts(String alert){
+        this.facade.updateAlerts(alert);
+    }
 
     public HashMap<Integer, MetroGate> getGates(){
         return this.facade.getMetroGates();
